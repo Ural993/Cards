@@ -27,7 +27,7 @@ export const App = () => {
                         <Route path={"registration"} element={<RegistrationPage/>}/>
                         <Route path={"profile"} element={<ProfilePage/>}/>
                         <Route path={"recovery"} element={<PassRecoveryPage/>}/>
-                        <Route path={"pass"} element={<CreateNewPassPage/>}/>
+                        <Route path={"pass/:token"} element={<CreateNewPassPage/>}/>
                         <Route path={"error"} element={<Error404Page/>}/>
                         <Route path={"test"} element={<TestPage/>}/>
                     </Routes>
