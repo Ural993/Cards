@@ -1,0 +1,28 @@
+.default,
+.red {
+    font-size: 1rem;
+    margin: 2px;
+    padding: 4px;
+    border: 1px solid gray;
+    outline: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: outline-offset 150ms ease;
+}
+
+.red:hover,
+.default:hover {
+    outline-offset: 1px;
+}
+
+.default:active{
+    background: rgba(145, 143, 143, 0.6);
+}
+
+.red {
+    background: rgba(255, 4, 4, 0.75);
+
+}
+.red:active{
+    background: rgba(227, 0, 0, 0.92);
+}

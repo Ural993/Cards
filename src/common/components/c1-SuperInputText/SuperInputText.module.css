@@ -1,0 +1,23 @@
+.superInput {
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: white;
+    padding: 5px;
+    margin: 5px;
+    outline: 1px solid gray;
+    transition: outline-offset 150ms ease;
+}
+
+.superInput:focus {
+    outline-offset: 2px;
+}
+
+.errorInput {
+    background: rgba(255, 4, 4, 0.75);
+}
+
+.error {
+    color: red;
+    font-size: 0.7rem;
+}
