@@ -1,29 +1,65 @@
-
+import {Dispatch} from "redux";
+import {authApi} from "../../../dal/cardsApi";
 
 const initState = {
-    isFetching: false
+    userDate: {
+        _id: "",
+        email: "",
+        name: "",
+        avatar: "",
+        publicCardPacksCount: 0,
+    },
+    isFetching: false,
+    isAuthorized: false,
 }
 
 type AppInitStateType = typeof initState
 
-type AppActionType = SetIsFetchingAT
 
 export const appReducer = (state: AppInitStateType = initState, action: AppActionType) => {
-    switch (action.type){
+    switch (action.type) {
         case "APP/SET-IS-FETCHING":
             return {
                 ...state,
                 isFetching: action.isFetching
             }
+        case "APP/SET-USER-DATES":
+            return {...state, userDate: action.payload}
+        case "APP/IS-AUTHORIZED":
+            return {...state, isAuthorized: action.isAuthorized}
         default:
             return state
     }
 }
 
-export type SetIsFetchingAT = ReturnType<typeof setIsFetchingAC>
 export const setIsFetchingAC = (isFetching: boolean) => {
-    return{
-        type: "APP/SET-IS-FETCHING",
-        isFetching
-    } as const
+    return {type: "APP/SET-IS-FETCHING", isFetching} as const
 }
+export const setUserDatesAC = (payload: {
+    _id: string, email: string,
+    name: string, avatar: string, publicCardPacksCount: number,
+}) => ({type: "APP/SET-USER-DATES", payload} as const)
+
+export const isAuthorizedAC = (isAuthorized: boolean) => ({type: "APP/IS-AUTHORIZED", isAuthorized} as const)
+
+
+export const authorization = () => (dispatch: Dispatch) => {
+    authApi.authorization()
+        .then((res) => {
+            dispatch(setUserDatesAC(res.data))
+            dispatch(isAuthorizedAC(true))
+        })
+}
+export const logout = () => (dispatch: Dispatch) => {
+    authApi.logout()
+        .then((res) => {
+            debugger
+        dispatch(isAuthorizedAC(false))
+        })
+}
+
+
+export type SetIsFetchingAT = ReturnType<typeof setIsFetchingAC>
+type setUserDatesACType = ReturnType<typeof setUserDatesAC>
+type isAuthorizedACType = ReturnType<typeof isAuthorizedAC>
+type AppActionType = SetIsFetchingAT | setUserDatesACType | isAuthorizedACType

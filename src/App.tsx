@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./App.module.scss"
 import {HashRouter, Link, Route, Routes} from "react-router-dom";
 import {LoginPage} from "./components/pages/p1- loginization/l1-login/login-page";
@@ -8,8 +8,14 @@ import {CreateNewPassPage} from "./components/pages/p1- loginization/l4-create-n
 import {PassRecoveryPage} from "./components/pages/p1- loginization/l3-pass-recovery/pass-recovery-page";
 import {Error404Page} from "./components/pages/p3-error/error404-page";
 import {TestPage} from "./components/pages/p4-test/test-page";
+import {useDispatch} from "react-redux";
+import {authorization} from "./bll/reducers/app/app-reducer";
 
 export const App = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(authorization())
+    })
     return (
         <div className={styles.container}>
             <HashRouter>

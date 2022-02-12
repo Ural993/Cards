@@ -9,6 +9,15 @@ export const authApi = {
     ping() {
         return instance.get("ping")
     },
+    authorization() {
+        return instance.post('auth/me',{})
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete('auth/me', {})
+    },
     registerUser(email: string, password: string) {
         return instance.post<RegisterRequestType>("auth/register", {email, password})
     },
@@ -25,4 +34,17 @@ export const authApi = {
 
 type RegisterRequestType = {
     error?: string
+}
+
+export type RequestUserDate={
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string,
+    publicCardPacksCount: number,
+    created: Date,
+    updated: Date,
+    isAdmin: boolean,
+    verified: boolean,
+    rememberMe: boolean,
 }
