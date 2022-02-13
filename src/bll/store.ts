@@ -5,6 +5,7 @@ import {loginReducer} from "./reducers/r1-login/login-reduser";
 import {registrationReducer} from "./reducers/r2-registration/registation-reducer";
 import {passwordRecoveryReducer} from "./reducers/r3-passwordRecovery/pass-recovery-reducer";
 import {PacksReducer} from "./reducers/packs/packs-reducer";
+import {CardsReducer} from "./reducers/cards/cards-reducer";
 
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
     passwordRecovery: passwordRecoveryReducer,
-    packsList: PacksReducer
+    packs: PacksReducer,
+    cards:CardsReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

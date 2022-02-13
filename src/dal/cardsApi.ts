@@ -33,8 +33,11 @@ export const authApi = {
     }
 }
 export const packsApi = {
-    getPacks(){
-        return instance.get('cards/pack')
+    getPacks(page:number){
+        return instance.get(`cards/pack?&pageCount=10&page=${page}`)
+    },
+    getCards(id:string){
+        return instance.get(`cards/card?&cardsPack_id=${id}`)
     }
 }
 

@@ -11,6 +11,7 @@ import {TestPage} from "./components/pages/p4-test/test-page";
 import {useDispatch} from "react-redux";
 import {authorization} from "./bll/reducers/app/app-reducer";
 import {PacksPage} from "./components/pages/packs/packs-page";
+import {CardsPage} from "./components/pages/cards/cards-page";
 
 export const App = () => {
     console.log('App')
@@ -41,6 +42,7 @@ export const App = () => {
                         <Route path={"error"} element={<Error404Page/>}/>
                         <Route path={"test"} element={<TestPage/>}/>
                         <Route path={"packs-list"} element={<PacksPage/>}/>
+                        <Route path={"cards/:id"} element={<CardsPage/>}/>
                     </Routes>
                 </div>
             </HashRouter>

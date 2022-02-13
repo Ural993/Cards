@@ -1,0 +1,16 @@
+.pack{
+  display: flex;
+  background-color: #F8F7FD;
+  .name{
+    width: 150px;
+  }
+  .cardsCount{
+    width: 50px;
+  }
+  .updated{
+    width: 200px;
+  }
+  .created{
+    width: 200px;
+  }
+}

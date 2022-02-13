@@ -1,39 +1,65 @@
-import { Dispatch } from "redux"
+import {Dispatch} from "redux"
 import {packsApi} from "../../../dal/cardsApi";
+import {AppStateType} from "../../store";
 
 
-export type PackType={
-    _id:string
-    user_id:string
-    name:string
-    cardsCount:number
-    created:string
-    updated:string
+export type PackType = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
+}
+type initStateType = {
+    packs: Array<PackType>
+    cardPacksTotalCount: number
+    pageCount: number
+    page: number
+}
+
+const initState = {
+    packs: [],
+    cardPacksTotalCount: 0,
+    pageCount: 0,
+    page: 0
 }
 
 
-const initState:Array<PackType> = []
-
-export const PacksReducer = (state:Array<PackType> = initState, action: ActionsType) => {
+export const PacksReducer = (state: initStateType = initState, action: ActionsType) => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
-            return action.payload.map(p=>{
-                return p  })
+            return {
+                ...state,
+                packs: action.payload,
+                cardPacksTotalCount: action.cardPacksTotalCount,
+                pageCount: action.pageCount,
+                page: action.page
+            }
+        case "PACKS/SET-PAGE":
+            return {...state, page: action.page}
         default :
-           return state
+            return state
     }
 }
-const setPacksAC =(payload:Array<PackType>)=>({type:"PACKS/SET-PACKS", payload} as const)
+const setPacksAC = (payload: Array<PackType>, cardPacksTotalCount: number, pageCount: number, page: number) => ({
+    type: "PACKS/SET-PACKS",
+    payload,
+    cardPacksTotalCount, pageCount, page
+} as const)
+export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as const)
 
-export const getPacks =()=>(dispatch:Dispatch)=>{
-    packsApi.getPacks()
-        .then((res)=>{
-            dispatch(setPacksAC(res.data.cardPacks))
+export const getPacks = () => (dispatch: Dispatch, getState:()=>AppStateType) => {
+    let page = getState().packs.page
+    packsApi.getPacks(page)
+        .then((res) => {
+            dispatch(setPacksAC(res.data.cardPacks, res.data.cardPacksTotalCount, res.data.pageCount, res.data.page))
         })
-        .catch((err)=>{
+        .catch((err) => {
             debugger
         })
 }
 
 type setPacksACType = ReturnType<typeof setPacksAC>
-type ActionsType = setPacksACType
+type setPageACType = ReturnType<typeof setPageAC>
+type ActionsType = setPacksACType | setPageACType
