@@ -38,6 +38,8 @@ export const PacksReducer = (state: initStateType = initState, action: ActionsTy
             }
         case "PACKS/SET-PAGE":
             return {...state, page: action.page}
+        case "PACKS/SET-PAGE-COUNT":
+            return {...state, pageCount: action.pageCount}
         default :
             return state
     }
@@ -48,10 +50,12 @@ const setPacksAC = (payload: Array<PackType>, cardPacksTotalCount: number, pageC
     cardPacksTotalCount, pageCount, page
 } as const)
 export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as const)
+export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COUNT", pageCount} as const)
 
-export const getPacks = () => (dispatch: Dispatch, getState:()=>AppStateType) => {
+export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
     let page = getState().packs.page
-    packsApi.getPacks(page)
+    let pageCount = getState().packs.pageCount
+    packsApi.getPacks(page, pageCount)
         .then((res) => {
             dispatch(setPacksAC(res.data.cardPacks, res.data.cardPacksTotalCount, res.data.pageCount, res.data.page))
         })
@@ -62,4 +66,5 @@ export const getPacks = () => (dispatch: Dispatch, getState:()=>AppStateType) =>
 
 type setPacksACType = ReturnType<typeof setPacksAC>
 type setPageACType = ReturnType<typeof setPageAC>
-type ActionsType = setPacksACType | setPageACType
+type setPageCountACType = ReturnType<typeof setPageCountAC>
+type ActionsType = setPacksACType | setPageACType | setPageCountACType

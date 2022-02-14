@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../bll/store";
+import {AppStateType} from "../../../../bll/store";
 import styles from './PacksPagination.module.scss'
-import {setPageAC} from "../../../bll/reducers/packs/packs-reducer";
+import {setPageAC} from "../../../../bll/reducers/packs/packs-reducer";
 
 
 export const PacksPagination = () => {
