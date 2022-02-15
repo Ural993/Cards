@@ -16,13 +16,15 @@ type initStateType = {
     cardPacksTotalCount: number
     pageCount: number
     page: number
+    parameter: boolean
 }
 
 const initState = {
     packs: [],
     cardPacksTotalCount: 0,
-    pageCount: 0,
-    page: 0
+    pageCount: 10,
+    page: 1,
+    parameter: false
 }
 
 
@@ -40,6 +42,8 @@ export const PacksReducer = (state: initStateType = initState, action: ActionsTy
             return {...state, page: action.page}
         case "PACKS/SET-PAGE-COUNT":
             return {...state, pageCount: action.pageCount}
+        case "PACKS/GET-MY-PACKS":
+            return {...state, parameter: action.parameter}
         default :
             return state
     }
@@ -51,11 +55,17 @@ const setPacksAC = (payload: Array<PackType>, cardPacksTotalCount: number, pageC
 } as const)
 export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as const)
 export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COUNT", pageCount} as const)
+export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
+
 
 export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
+    debugger
     let page = getState().packs.page
     let pageCount = getState().packs.pageCount
-    packsApi.getPacks(page, pageCount)
+    let parameter = getState().packs.parameter
+    let user_id
+    parameter ? user_id = getState().app.userDate._id : user_id = ''
+    packsApi.getPacks(page, pageCount, user_id)
         .then((res) => {
             dispatch(setPacksAC(res.data.cardPacks, res.data.cardPacksTotalCount, res.data.pageCount, res.data.page))
         })
@@ -63,8 +73,17 @@ export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType)
             debugger
         })
 }
+export const addPack = (name: string) => (dispatch: any) => {
+    packsApi.addPack(name)
+        .then((res) => {
+            dispatch(getPacks())
+        })
+
+}
+
 
 type setPacksACType = ReturnType<typeof setPacksAC>
 type setPageACType = ReturnType<typeof setPageAC>
 type setPageCountACType = ReturnType<typeof setPageCountAC>
-type ActionsType = setPacksACType | setPageACType | setPageCountACType
+type getMyPacksParameterType = ReturnType<typeof getMyPacksParameterAC>
+type ActionsType = setPacksACType | setPageACType | setPageCountACType | getMyPacksParameterType

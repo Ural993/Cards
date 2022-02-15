@@ -10,7 +10,7 @@ export const PacksPagination = () => {
     const pageCount = useSelector<AppStateType, number>((state) => state.packs.pageCount)
     const page = useSelector<AppStateType, number>((state) => state.packs.page)
     let pageMas = []
-    for (let i = 0; i <= cardPacksTotalCount / pageCount; i++) {
+    for (let i = 1; i <= cardPacksTotalCount / pageCount; i++) {
         pageMas.push(i)
     }
     const onClickPage = (page:number) => {

@@ -1,8 +1,9 @@
 import axios from "axios"
+import {addPack} from "../bll/reducers/packs/packs-reducer";
 
 const instance = axios.create({
     //baseURL: "http://localhost:7542/2.0/",
-    baseURL:"https://neko-back.herokuapp.com/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true,
 })
 
@@ -11,7 +12,7 @@ export const authApi = {
         return instance.get("ping")
     },
     authorization() {
-        return instance.post('auth/me',{})
+        return instance.post('auth/me', {})
     },
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post('auth/login', {email, password, rememberMe})
@@ -33,10 +34,13 @@ export const authApi = {
     }
 }
 export const packsApi = {
-    getPacks(page:number=0, pageCount:number=10){
-        return instance.get(`cards/pack?&pageCount=${pageCount}&page=${page}`)
+    getPacks(page: number = 0, pageCount: number = 10, user_id:string='') {
+        return instance.get(`cards/pack?&pageCount=${pageCount}&page=${page}&user_id=${user_id}`)
     },
-    getCards(id:string){
+    addPack(name: string) {
+        return instance.post('cards/pack', {cardsPack: {name}})
+    },
+    getCards(id: string) {
         return instance.get(`cards/card?&cardsPack_id=${id}`)
     }
 }
@@ -45,7 +49,7 @@ type RegisterRequestType = {
     error?: string
 }
 
-export type RequestUserDate={
+export type RequestUserDate = {
     _id: string,
     email: string,
     name: string,

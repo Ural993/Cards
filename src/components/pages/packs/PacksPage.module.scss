@@ -1,0 +1,12 @@
+.packsPage {
+  display: flex;
+  .leftPart{
+    width: 1000px;
+  }
+
+  .rightPart {
+    .block {
+      display: flex;
+    }
+  }
+}

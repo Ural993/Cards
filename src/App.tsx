@@ -10,7 +10,7 @@ import {Error404Page} from "./components/pages/p3-error/error404-page";
 import {TestPage} from "./components/pages/p4-test/test-page";
 import {useDispatch} from "react-redux";
 import {authorization} from "./bll/reducers/app/app-reducer";
-import {PacksPage} from "./components/pages/packs/packs-page";
+import {PacksPage} from "./components/pages/packs/PacksPage";
 import {CardsPage} from "./components/pages/cards/cards-page";
 
 export const App = () => {
