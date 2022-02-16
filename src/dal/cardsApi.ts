@@ -40,6 +40,12 @@ export const packsApi = {
     addPack(name: string) {
         return instance.post('cards/pack', {cardsPack: {name}})
     },
+    deletePack(id: string) {
+            return instance.delete(`cards/pack?id=${id}`)
+    },
+    updatePack(_id: string, name:string) {
+        return instance.put('cards/pack', {cardsPack: {_id, name}})
+    },
     getCards(id: string) {
         return instance.get(`cards/card?&cardsPack_id=${id}`)
     }

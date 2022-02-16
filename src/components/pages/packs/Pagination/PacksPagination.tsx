@@ -9,9 +9,9 @@ export const PacksPagination = () => {
     const cardPacksTotalCount = useSelector<AppStateType, number>((state) => state.packs.cardPacksTotalCount)
     const pageCount = useSelector<AppStateType, number>((state) => state.packs.pageCount)
     const page = useSelector<AppStateType, number>((state) => state.packs.page)
-    let pageMas = []
+    let pageArr = []
     for (let i = 1; i <= cardPacksTotalCount / pageCount; i++) {
-        pageMas.push(i)
+        pageArr.push(i)
     }
     const onClickPage = (page:number) => {
         dispatch(setPageAC(page))
@@ -19,7 +19,7 @@ export const PacksPagination = () => {
 
     return (
         <div className={styles.pagination}>
-            {pageMas.map(p => {
+            {pageArr.map(p => {
                 return (<div onClick={()=>onClickPage(p)}>-{p}-</div>)
             })}
         </div>

@@ -59,7 +59,6 @@ export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-
 
 
 export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
-    debugger
     let page = getState().packs.page
     let pageCount = getState().packs.pageCount
     let parameter = getState().packs.parameter
@@ -78,7 +77,18 @@ export const addPack = (name: string) => (dispatch: any) => {
         .then((res) => {
             dispatch(getPacks())
         })
-
+}
+export const deletePack = (id: string) => (dispatch: any) => {
+    packsApi.deletePack(id)
+        .then((res) => {
+            dispatch(getPacks())
+        })
+}
+export const updatePack = (id: string, newName:string) => (dispatch: any) => {
+    packsApi.updatePack(id, newName)
+        .then((res) => {
+            dispatch(getPacks())
+        })
 }
 
 
