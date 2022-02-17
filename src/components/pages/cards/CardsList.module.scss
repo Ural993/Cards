@@ -1,0 +1,20 @@
+.packsHeader {
+  display: flex;
+  font-weight: 700;
+
+  .question {
+    width: 150px;
+  }
+
+  .answer {
+    width: 150px;
+  }
+
+  .updated {
+    width: 200px;
+  }
+
+  .grade {
+    width: 200px;
+  }
+}

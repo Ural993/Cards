@@ -1,10 +1,12 @@
 .packsPage {
   display: flex;
-  .leftPart{
-    width: 1000px;
+
+  .leftPart {
+    min-width: 300px;
   }
 
   .rightPart {
+
     .block {
       display: flex;
     }

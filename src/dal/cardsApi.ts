@@ -46,11 +46,22 @@ export const packsApi = {
     updatePack(_id: string, name:string) {
         return instance.put('cards/pack', {cardsPack: {_id, name}})
     },
-    getCards(id: string) {
-        return instance.get(`cards/card?&cardsPack_id=${id}`)
-    }
 }
 
+export const cardsApi ={
+    getCards(id: string) {
+        return instance.get(`cards/card?cardsPack_id=${id}`)
+    },
+    addCard(cardsPack_id:string){
+        return instance.post('cards/card', {card:{cardsPack_id}})
+    },
+    deleteCard(id:string){
+        return instance.delete(`cards/card?id=${id}`)
+    },
+    updateCard(_id:string){
+        return instance.put('cards/card', {card:{_id}})
+    }
+}
 type RegisterRequestType = {
     error?: string
 }
