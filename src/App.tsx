@@ -12,25 +12,30 @@ import {useDispatch} from "react-redux";
 import {authorization} from "./bll/reducers/app/app-reducer";
 import {PacksPage} from "./components/pages/packs/PacksPage";
 import {CardsPage} from "./components/pages/cards/CardsPage";
+import profileImg from "./common/images/Profile.svg";
+import packsListImg from "./common/images/Packlists.svg";
+
 
 export const App = () => {
     console.log('App')
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(authorization())
-    },[])
+    }, [])
+
+    const profile = {
+        backgroundImage: `url(${profileImg})`,
+    };
+    const packsList = {
+        backgroundImage: `url(${packsListImg})`,
+    };
     return (
-        <div className={styles.container}>
+        <div className={styles.app}>
             <HashRouter>
-                <nav>
-                    <Link to={"login"}>Login</Link>
-                    <Link to={"registration"}>Registration</Link>
-                    <Link to={"recovery"}>Recovery pass</Link>
-                    <Link to={"pass"}>New Pass</Link>
-                    <Link to={"error"}>404</Link>
-                    <Link to={"test"}>Test</Link>
-                    <Link to={"packs-list"}>PacksList</Link>
-                </nav>
+                <header className={styles.header}>
+                    <div className={styles.packsListImg} style={packsList}><Link to={"packs-list"}>Packs list</Link></div>
+                    <div className={styles.profileImg} style={profile}><Link to={"profile"}>Profile</Link></div>
+                </header>
                 <div className={styles.contentContainer}>
                     <Routes>
                         <Route path={"/"} element={<ProfilePage/>}/>
