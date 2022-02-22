@@ -62,13 +62,16 @@ export const PacksPage = () => {
                     <button onClick={AddPack}>Add new pack</button>
                 </div>
                 <PacksList packs={packs}/>
-                <PacksPagination/>
-                <Select pageCount={pageCount} onChange={onChange} collapsed={collapsed}
-                        onChangeCollapsed={() => setCollapsed(!collapsed)} items={[
-                    {pageCount: 10},
-                    {pageCount: 20},
-                    {pageCount: 30},
-                ]}/>
+                <div className={styles.pagSelectBlock}>
+                    <PacksPagination/>
+                    <Select pageCount={pageCount} onChange={onChange} collapsed={collapsed}
+                            onChangeCollapsed={() => setCollapsed(!collapsed)} items={[
+                        {pageCount: 10},
+                        {pageCount: 20},
+                        {pageCount: 30},
+                    ]}/>
+                </div>
+
             </div>
 
         </div>

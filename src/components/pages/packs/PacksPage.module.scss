@@ -1,13 +1,28 @@
 .packsPage {
   display: flex;
+  width: 1008px;
+  height: 732px;
+  margin: 30px auto;
+  border-radius: 8px;
+  background-color: #FEFEFF;
 
   .leftPart {
-    min-width: 300px;
+    min-width: 243px;
+    background-color: #ECECF9;
+    padding: 24px;
   }
 
   .rightPart {
-
+    h2{
+      margin-bottom: 15px;
+    }
+    width: 100%;
+    padding: 24px 48px;
     .block {
+      display: flex;
+      margin-bottom: 24px;
+    }
+    .pagSelectBlock{
       display: flex;
     }
   }

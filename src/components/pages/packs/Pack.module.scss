@@ -1,16 +1,29 @@
-.pack{
+.pack {
   display: flex;
-  background-color: #F8F7FD;
-  .name{
+  height: 48px;
+  align-items: center;
+  padding: 0 10px;
+
+  &:nth-child(2n) {
+    background-color: #F8F7FD;
+  }
+
+  .name {
     width: 150px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
   }
-  .cardsCount{
-    width: 50px;
+
+  .cardsCount {
+    width: 80px;
   }
-  .updated{
-    width: 200px;
+
+  .updated {
+    width: 140px;
   }
-  .created{
-    width: 200px;
+
+  .created {
+    width: 110px;
   }
 }
