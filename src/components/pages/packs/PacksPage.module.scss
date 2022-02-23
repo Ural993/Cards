@@ -13,17 +13,30 @@
   }
 
   .rightPart {
-    h2{
+    h2 {
       margin-bottom: 15px;
     }
+
     width: 100%;
     padding: 24px 48px;
+
     .block {
       display: flex;
       margin-bottom: 24px;
     }
-    .pagSelectBlock{
+
+    .pagSelectBlock {
       display: flex;
+
+      .selectWrapper {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
