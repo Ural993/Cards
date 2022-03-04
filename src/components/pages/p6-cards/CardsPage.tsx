@@ -7,12 +7,14 @@ import {CardsList} from "./CardsList";
 import styles from './CardsPage.module.scss'
 import {CardsPagination} from "./Pagination/CardsPagination";
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
+import {CardsSelect} from "./Select/Select";
 
 
 export const CardsPage = () => {
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, Array<CardType>>((state) => state.cards.cards)
     const page = useSelector<AppStateType, number>((state) => state.cards.page)
+    const pageCount = useSelector<AppStateType, number>((state) => state.cards.pageCount)
     const isAuthorized = useSelector<AppStateType, boolean>(state => state.app.isAuthorized)
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
 
@@ -23,7 +25,7 @@ export const CardsPage = () => {
                 dispatch(getCards(id))
             }
         }
-    }, [isAuthorized, page])
+    }, [isAuthorized, page, pageCount])
     const addCardBtn = () => {
         if (id) {
             dispatch(addCard(id))
@@ -40,7 +42,10 @@ export const CardsPage = () => {
                 <button onClick={addCardBtn}>Add new card</button>
             </div>
             {cards.length !== 0 ? <CardsList cards={cards}/> : <div>Not cards</div>}
-            <CardsPagination/>
+            <div className={styles.cardsSelectPagination}>
+                <CardsPagination/>
+                <div className={styles.selectWrapper}><span>Show</span> <CardsSelect/> Cards per Page</div>
+            </div>
         </div>
 
     )

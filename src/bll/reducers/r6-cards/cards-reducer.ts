@@ -33,6 +33,8 @@ export const CardsReducer = (state = initState, action: ActionsType) => {
             return {
                 ...state, page: action.page
             }
+        case "CARDS/SET-CARDS-PAGE-COUNT":
+            return {...state, pageCount:action.pageCount}
         default:
             return state
     }
@@ -45,6 +47,7 @@ const setCardsAC = (cards: Array<CardType>, cardsTotalCount: number) => ({
 } as const)
 export const setCardsPageAC = (page: number) => ({type: "CARDS/SET-CARDS-PAGE", page} as const)
 
+export const setCardsPageCountAC = (pageCount: number) => ({type: "CARDS/SET-CARDS-PAGE-COUNT", pageCount} as const)
 //Thunks
 export const getCards = (id: string) => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
@@ -56,7 +59,7 @@ export const getCards = (id: string) => (dispatch: Dispatch, getState: () => App
             let {cards, cardsTotalCount} = res.data
             dispatch(setCardsAC(cards, cardsTotalCount))
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log(err)
         })
         .finally(() => {
@@ -85,4 +88,5 @@ export const updateCard = (cardsPack_id: string, card_id: string) => (dispatch: 
 
 type setCardsACType = ReturnType<typeof setCardsAC>
 type setCardsPageACType = ReturnType<typeof setCardsPageAC>
-type ActionsType = setCardsACType | setCardsPageACType
+type setCardsPageCountACType = ReturnType<typeof setCardsPageCountAC>
+type ActionsType = setCardsACType | setCardsPageACType | setCardsPageCountACType

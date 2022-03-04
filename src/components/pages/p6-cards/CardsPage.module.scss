@@ -13,4 +13,18 @@
   .block {
     margin-bottom: 24px;
   }
+
+  .cardsSelectPagination {
+    display: flex;
+
+    .selectWrapper {
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
 }
