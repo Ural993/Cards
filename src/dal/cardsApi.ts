@@ -51,8 +51,8 @@ export const cardsApi = {
     getCards(cardsPack_id: string, page: number, pageCount: number) {
         return instance.get(`cards/card`, {params: {cardsPack_id, page, pageCount}})
     },
-    addCard(cardsPack_id: string) {
-        return instance.post('cards/card', {card: {cardsPack_id}})
+    addCard(cardsPack_id: string, question:string, answer:string) {
+        return instance.post('cards/card', {card: {cardsPack_id, question, answer}})
     },
     deleteCard(id: string) {
         return instance.delete(`cards/card?id=${id}`)

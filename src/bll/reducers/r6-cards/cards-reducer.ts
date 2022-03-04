@@ -66,8 +66,8 @@ export const getCards = (id: string) => (dispatch: Dispatch, getState: () => App
             dispatch(setIsFetchingAC(false))
         })
 }
-export const addCard = (cardsPack_id: string) => (dispatch: any) => {
-    cardsApi.addCard(cardsPack_id)
+export const addCard = (cardsPack_id: string, question:string, answer:string) => (dispatch: any) => {
+    cardsApi.addCard(cardsPack_id, question, answer)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
         })
