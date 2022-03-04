@@ -1,10 +1,11 @@
 import React from "react";
-import {PackType} from "../../../bll/reducers/packs/packs-reducer";
+import {PackType} from "../../../bll/reducers/r5-packs/packs-reducer";
 import {Pack} from "./Pack";
 import styles from "./PacksList.module.scss";
 
 
 export const PacksList = (props: any) => {
+
     return (
         <div className={styles.packsList}>
             <div className={styles.packsHeader}>

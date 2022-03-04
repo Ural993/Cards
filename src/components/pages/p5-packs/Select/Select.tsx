@@ -1,6 +1,6 @@
-import { useSelector, useDispatch} from 'react-redux';
-import { AppStateType } from '../../../../bll/store';
-import {setPageCountAC} from "../../../../bll/reducers/packs/packs-reducer";
+import {useSelector, useDispatch} from 'react-redux';
+import {AppStateType} from '../../../../bll/store';
+import {setPageCountAC} from "../../../../bll/reducers/r5-packs/packs-reducer";
 import FormControl from '@mui/material/FormControl/FormControl';
 import NativeSelect from '@mui/material/NativeSelect/NativeSelect';
 import Box from '@mui/material/Box/Box';
@@ -15,12 +15,12 @@ export function PacksSelect() {
 
     return (
         <Box sx={{minWidth: 50}}>
-            <FormControl >
+            <FormControl>
                 <NativeSelect
-                    onChange={handleChange}>
-                    defaultValue={pageCount}
+                    onChange={handleChange} defaultValue={pageCount}>
+
                     <option value={4}>4</option>
-                    <option value={10}>10</option>
+                    <option value={8}>8</option>
                     <option value={15}>15</option>
                 </NativeSelect>
             </FormControl>

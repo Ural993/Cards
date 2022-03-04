@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Card.module.scss'
-import {CardType, deleteCard, updateCard} from "../../../bll/reducers/cards/cards-reducer";
+import {CardType, deleteCard, updateCard} from "../../../bll/reducers/r6-cards/cards-reducer";
 import {useDispatch} from "react-redux";
 
 type PropsType = {

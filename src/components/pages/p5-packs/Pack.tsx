@@ -1,5 +1,5 @@
 import React from "react";
-import {deletePack, PackType, updatePack} from "../../../bll/reducers/packs/packs-reducer";
+import {deletePack, PackType, updatePack} from "../../../bll/reducers/r5-packs/packs-reducer";
 import styles from './Pack.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";

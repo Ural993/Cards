@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  padding: 0 10px;
+
+  &:nth-child(2n-1) {
+    background-color: #F8F7FD;
+  }
+}
+
+.question {
+  width: 150px;
+}
+
+.answer {
+  width: 150px;
+}
+
+.updated {
+  width: 200px;
+}
+
+.grade {
+  width: 150px;
+}

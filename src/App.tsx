@@ -9,9 +9,9 @@ import {PassRecoveryPage} from "./components/pages/p1- loginization/l3-pass-reco
 import {Error404Page} from "./components/pages/p3-error/error404-page";
 import {TestPage} from "./components/pages/p4-test/test-page";
 import {useDispatch} from "react-redux";
-import {authorization} from "./bll/reducers/app/app-reducer";
-import {PacksPage} from "./components/pages/packs/PacksPage";
-import {CardsPage} from "./components/pages/cards/CardsPage";
+import {authorization} from "./bll/reducers/r4-app/app-reducer";
+import {PacksPage} from "./components/pages/p5-packs/PacksPage";
+import {CardsPage} from "./components/pages/p6-cards/CardsPage";
 import profileImg from "./common/images/Profile.svg";
 import packsListImg from "./common/images/Packlists.svg";
 
@@ -33,7 +33,7 @@ export const App = () => {
         <div className={styles.app}>
             <HashRouter>
                 <header className={styles.header}>
-                    <div className={styles.packsListImg} style={packsList}><Link to={"packs-list"}>Packs list</Link></div>
+                    <div className={styles.packsListImg} style={packsList}><Link to={"packs"}>Packs list</Link></div>
                     <div className={styles.profileImg} style={profile}><Link to={"profile"}>Profile</Link></div>
                 </header>
                 <div className={styles.contentContainer}>
@@ -46,7 +46,7 @@ export const App = () => {
                         <Route path={"pass/:token"} element={<CreateNewPassPage/>}/>
                         <Route path={"error"} element={<Error404Page/>}/>
                         <Route path={"test"} element={<TestPage/>}/>
-                        <Route path={"packs-list"} element={<PacksPage/>}/>
+                        <Route path={"packs"} element={<PacksPage/>}/>
                         <Route path={"cards/:id"} element={<CardsPage/>}/>
                     </Routes>
                 </div>

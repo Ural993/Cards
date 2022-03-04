@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {Dispatch} from "redux";
 import {authApi} from "../../../dal/cardsApi";
-import {isAuthorizedAC} from "../app/app-reducer";
+import {isAuthorizedAC} from "../r4-app/app-reducer";
 
 
 const initState = {

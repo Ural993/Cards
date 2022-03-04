@@ -1,6 +1,7 @@
 import {Dispatch} from "redux"
 import {packsApi} from "../../../dal/cardsApi";
 import {AppStateType} from "../../store";
+import {setIsFetchingAC} from "../r4-app/app-reducer";
 
 
 export type PackType = {
@@ -22,9 +23,9 @@ type initStateType = {
 const initState = {
     packs: [],
     cardPacksTotalCount: 0,
-    pageCount: 10,
+    pageCount: 8,
     page: 1,
-    parameter: false
+    parameter: false,
 }
 
 
@@ -59,6 +60,7 @@ export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-
 
 
 export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
+    dispatch(setIsFetchingAC(true))
     let page = getState().packs.page
     let pageCount = getState().packs.pageCount
     let parameter = getState().packs.parameter
@@ -70,6 +72,9 @@ export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType)
         })
         .catch((err) => {
             debugger
+        })
+        .finally(()=>{
+            dispatch(setIsFetchingAC(false))
         })
 }
 export const addPack = (name: string) => (dispatch: any) => {

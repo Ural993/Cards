@@ -5,12 +5,13 @@ import {
     getMyPacksParameterAC,
     getPacks,
     PackType,
-} from "../../../bll/reducers/packs/packs-reducer";
+} from "../../../bll/reducers/r5-packs/packs-reducer";
 import {AppStateType} from "../../../bll/store";
 import {PacksList} from "./PacksList";
 import {PacksPagination} from "./Pagination/PacksPagination";
 import {PacksSelect} from "./Select/Select";
 import styles from './PacksPage.module.scss'
+import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 
 
 export const PacksPage = () => {
@@ -20,7 +21,7 @@ export const PacksPage = () => {
     const page = useSelector<AppStateType, number>((state) => state.packs.page)
     const packsPageCount = useSelector<AppStateType, number>((state) => state.packs.pageCount)
     const parameter = useSelector<AppStateType, boolean>((state) => state.packs.parameter)
-
+    const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
     useEffect(() => {
         if (isAuthorized) {
             dispatch(getPacks())
@@ -36,6 +37,9 @@ export const PacksPage = () => {
         } else {
             dispatch(getMyPacksParameterAC(false))
         }
+    }
+    if (isFetching) {
+        return <Preloader/>
     }
     return (
         <div className={styles.packsPage}>

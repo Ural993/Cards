@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import { authApi } from "../../../dal/cardsApi";
-import {setIsFetchingAC, SetIsFetchingAT} from "../app/app-reducer";
+import {setIsFetchingAC, SetIsFetchingAT} from "../r4-app/app-reducer";
 
 
 const initState = {

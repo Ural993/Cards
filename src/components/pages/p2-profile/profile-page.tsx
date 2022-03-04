@@ -1,7 +1,7 @@
 import React from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../bll/store";
-import {logout} from "../../../bll/reducers/app/app-reducer";
+import {logout} from "../../../bll/reducers/r4-app/app-reducer";
 import {Navigate} from "react-router-dom";
 
 export const ProfilePage = () => {

@@ -1,5 +1,4 @@
 import axios from "axios"
-import {addPack} from "../bll/reducers/packs/packs-reducer";
 
 const instance = axios.create({
     //baseURL: "http://localhost:7542/2.0/",
@@ -34,32 +33,32 @@ export const authApi = {
     }
 }
 export const packsApi = {
-    getPacks(page: number = 0, pageCount: number = 10, user_id:string='') {
+    getPacks(page: number = 0, pageCount: number = 10, user_id: string = '') {
         return instance.get(`cards/pack?&pageCount=${pageCount}&page=${page}&user_id=${user_id}`)
     },
     addPack(name: string) {
         return instance.post('cards/pack', {cardsPack: {name}})
     },
     deletePack(id: string) {
-            return instance.delete(`cards/pack?id=${id}`)
+        return instance.delete(`cards/pack?id=${id}`)
     },
-    updatePack(_id: string, name:string) {
+    updatePack(_id: string, name: string) {
         return instance.put('cards/pack', {cardsPack: {_id, name}})
     },
 }
 
-export const cardsApi ={
-    getCards(id: string) {
-        return instance.get(`cards/card?cardsPack_id=${id}`)
+export const cardsApi = {
+    getCards(cardsPack_id: string, page: number, pageCount: number) {
+        return instance.get(`cards/card`, {params: {cardsPack_id, page, pageCount}})
     },
-    addCard(cardsPack_id:string){
-        return instance.post('cards/card', {card:{cardsPack_id}})
+    addCard(cardsPack_id: string) {
+        return instance.post('cards/card', {card: {cardsPack_id}})
     },
-    deleteCard(id:string){
+    deleteCard(id: string) {
         return instance.delete(`cards/card?id=${id}`)
     },
-    updateCard(_id:string){
-        return instance.put('cards/card', {card:{_id}})
+    updateCard(_id: string) {
+        return instance.put('cards/card', {card: {_id}})
     }
 }
 type RegisterRequestType = {
