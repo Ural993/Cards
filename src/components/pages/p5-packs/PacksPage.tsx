@@ -31,12 +31,11 @@ export const PacksPage = () => {
     const AddPack = () => {
         dispatch(addPack('Hello world!'))
     }
-    const changeParameter = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked === true) {
-            dispatch(getMyPacksParameterAC(true))
-        } else {
-            dispatch(getMyPacksParameterAC(false))
-        }
+    const onClickMy = () => {
+        dispatch(getMyPacksParameterAC(true))
+    }
+    const onClickAll = () => {
+        dispatch(getMyPacksParameterAC(false))
     }
     if (isFetching) {
         return <Preloader/>
@@ -44,10 +43,16 @@ export const PacksPage = () => {
     return (
         <div className={styles.packsPage}>
             <div className={styles.leftPart}>
-                <h2>Show packs cards</h2>
-                <input onChange={changeParameter} type="checkbox"/>
+                <h2 className={styles.title}>Show packs cards</h2>
+                <div className={styles.checkboxWrapper}>
+                    <div className={!parameter ? styles.my : `${styles.my} ${styles.active}`}
+                         onClick={onClickMy}>My
+                    </div>
+                    <div className={parameter ? styles.my : `${styles.my} ${styles.active}`}
+                         onClick={onClickAll}>All
+                    </div>
+                </div>
                 <h3>Number of cards</h3>
-
             </div>
             <div className={styles.rightPart}>
                 <h2>Packs list</h2>

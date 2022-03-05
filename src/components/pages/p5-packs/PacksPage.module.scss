@@ -10,6 +10,37 @@
     min-width: 243px;
     background-color: #ECECF9;
     padding: 24px;
+
+    .title {
+      margin-bottom: 20px;
+    }
+
+    .checkboxWrapper {
+      width: 196px;
+      height: 36px;
+      display: flex;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 45px;
+    }
+
+    .my, .all {
+      width: 98px;
+      max-height: 36px;
+      padding-top: 10px;
+    }
+
+    .my {
+      background-color: #fff;
+    }
+
+    .all {
+      background-color: #fff;
+    }
+
+    .active {
+      background-color: #9A91C8;
+    }
   }
 
   .rightPart {
