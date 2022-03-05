@@ -11,6 +11,7 @@ export type PackType = {
     cardsCount: number
     created: string
     updated: string
+    user_name: string
 }
 type initStateType = {
     packs: Array<PackType>
@@ -63,7 +64,7 @@ const setPacksAC = (payload: Array<PackType>, cardPacksTotalCount: number, pageC
 export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as const)
 export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COUNT", pageCount} as const)
 export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
-export const setMaxMinValueAC = (value:any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
+export const setMaxMinValueAC = (value: any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
 
 export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))

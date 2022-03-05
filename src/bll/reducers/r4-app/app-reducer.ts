@@ -35,10 +35,15 @@ export const appReducer = (state: AppInitStateType = initState, action: AppActio
 export const setIsFetchingAC = (isFetching: boolean) => {
     return {type: "APP/SET-IS-FETCHING", isFetching} as const
 }
-export const setUserDatesAC = (payload: {
+export const setUserDatesAC = (
     _id: string, email: string,
     name: string, avatar: string, publicCardPacksCount: number,
-}) => ({type: "APP/SET-USER-DATES", payload} as const)
+) => ({
+    type: "APP/SET-USER-DATES", payload: {
+        _id, email,
+        name, avatar, publicCardPacksCount
+    }
+} as const)
 
 export const isAuthorizedAC = (isAuthorized: boolean) => ({type: "APP/IS-AUTHORIZED", isAuthorized} as const)
 
@@ -46,7 +51,12 @@ export const isAuthorizedAC = (isAuthorized: boolean) => ({type: "APP/IS-AUTHORI
 export const authorization = () => (dispatch: Dispatch) => {
     authApi.authorization()
         .then((res) => {
-            dispatch(setUserDatesAC(res.data))
+            let {
+                _id, email,
+                name, avatar, publicCardPacksCount
+            } = res.data
+            dispatch(setUserDatesAC(_id, email,
+                name, avatar, publicCardPacksCount))
             dispatch(isAuthorizedAC(true))
         })
 }
@@ -54,7 +64,7 @@ export const logout = () => (dispatch: Dispatch) => {
     authApi.logout()
         .then((res) => {
             debugger
-        dispatch(isAuthorizedAC(false))
+            dispatch(isAuthorizedAC(false))
         })
 }
 

@@ -18,6 +18,10 @@ export const CardsPage = () => {
     const pageCount = useSelector<AppStateType, number>((state) => state.cards.pageCount)
     const isAuthorized = useSelector<AppStateType, boolean>(state => state.app.isAuthorized)
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
+    let userId = useSelector<AppStateType, string>(state => state.app.userDate._id)
+    const packUserId = useSelector<AppStateType, string>((state) => state.cards.packUserId)
+
+
     const [wantToAdd, setWantToAdd] = useState(false)
 
     const openModal = () => {
@@ -45,7 +49,8 @@ export const CardsPage = () => {
             {wantToAdd && <AddCardModal closeModal={closeModal}/>}
             <div className={styles.block}>
                 <input type="text"/>
-                <button onClick={openModal}>Add new card</button>
+                <button>Search</button>
+                {userId === packUserId && <button onClick={openModal}>Add new card</button>}
             </div>
             {cards.length !== 0 ? <CardsList cards={cards}/> : <div>Not cards</div>}
             <div className={styles.cardsSelectPagination}>

@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {ChangeEvent, useEffect} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     addPack,
     getMyPacksParameterAC,
@@ -13,6 +13,8 @@ import {PacksSelect} from "./Select/Select";
 import styles from './PacksPage.module.scss'
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 import {RangeSlider} from "./Range/Range";
+import {AddPackModal} from "./AddPackModal/AddPackModal";
+import {Navigate} from "react-router-dom";
 
 
 export const PacksPage = () => {
@@ -31,9 +33,15 @@ export const PacksPage = () => {
         }
     }, [isAuthorized, page, packsPageCount, parameter, min, max])
 
-    const AddPack = () => {
-        dispatch(addPack('Hello world!'))
+    const [wantToAdd, setWantToAdd] = useState(false)
+
+    const openModal = () => {
+        setWantToAdd(true)
     }
+    const closeModal = () => {
+        setWantToAdd(false)
+    }
+
     const onClickMy = () => {
         dispatch(getMyPacksParameterAC(true))
     }
@@ -61,17 +69,20 @@ export const PacksPage = () => {
             <div className={styles.rightPart}>
                 <h2>Packs list</h2>
                 <div className={styles.block}>
-                    <input type="text"/>
-                    <button onClick={AddPack}>Add new pack</button>
+                    <div className={styles.searchBlock}>
+                        <input className={styles.searchInp} type="text" placeholder={'Search...'}/>
+                        <button className={styles.searchBtn}>Search</button>
+                    </div>
+                    <button className={styles.addPackBtn} onClick={openModal}>Add new pack</button>
                 </div>
                 <PacksList packs={packs}/>
                 <div className={styles.pagSelectBlock}>
                     <PacksPagination/>
                     <div className={styles.selectWrapper}><span>Show</span> <PacksSelect/> Cards per Page</div>
                 </div>
-
             </div>
-
+            {wantToAdd && <AddPackModal closeModal={closeModal}/>}
         </div>
+
     )
 }

@@ -13,7 +13,8 @@
     .title {
       margin-bottom: 20px;
     }
-    .rangeTitle{
+
+    .rangeTitle {
       margin-bottom: 50px;
 
     }
@@ -65,11 +66,60 @@
     }
 
     width: 100%;
-    padding: 24px 48px 10px 48px;
+    padding: 24px 30px 10px 30px;
 
     .block {
       display: flex;
       margin-bottom: 24px;
+      justify-content: space-between;
+
+      .searchBlock {
+        display: flex;
+        justify-content: space-between;
+        width: 65%;
+
+
+        .searchInp {
+          width: 100%;
+          margin-right: 20px;
+          background: #ECECF9;
+          border: 1px solid #635D80;
+          height: 36px;
+          padding-left: 10px;
+          opacity: 0.5;
+          border-radius: 2px;
+        }
+
+        .searchBtn {
+          width: 150px;
+          height: 36px;
+          background: #D7D8EF;
+          border-radius: 30px;
+          color: #21268F;
+          cursor: pointer;
+          border: none;
+
+          &:hover {
+            background: rgba(220, 220, 240, 1);
+            border: 1px solid;
+          }
+        }
+      }
+
+      .addPackBtn {
+        width: 184px;
+        height: 36px;
+        background: #21268F;
+        box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+        border: none;
+        &:hover {
+          border: 1px solid;
+        }
+      }
+
     }
 
     .pagSelectBlock {

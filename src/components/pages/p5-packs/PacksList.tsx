@@ -17,7 +17,7 @@ export const PacksList = (props: any) => {
             </div>
             <div className={styles.packs}>
                 {props.packs.map((p: PackType) => {
-                    return (<Pack pack={p}/>)
+                    return (<Pack  key={p._id} pack={p}/>)
                 })}
             </div>
         </div>

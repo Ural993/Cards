@@ -3,14 +3,8 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../bll/store";
 import {setMaxMinValueAC} from '../../../../bll/reducers/r5-packs/packs-reducer';
-import {createStyles} from '@mui/material/styles';
 import './GlobalCssSlider.css'
 
-const useStyles = createStyles(() => ({
-    root: {
-        color: 'red'
-    }
-}));
 
 export function RangeSlider() {
     const dispatch = useDispatch()
@@ -25,7 +19,7 @@ export function RangeSlider() {
     const handleChangeAnd = (event: any, newValue: any | number[]) => {
         dispatch(setMaxMinValueAC(newValue))
     };
-    //const classes = useStyles();
+    
     return (
         <div>
             <Slider

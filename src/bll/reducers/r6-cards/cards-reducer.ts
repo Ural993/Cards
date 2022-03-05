@@ -9,7 +9,8 @@ export type CardType = {
     cardsPack_id: string
     grade: number
     updated: string,
-    _id: string
+    _id: string,
+    user_id: string
 }
 
 const initState: initStateType = {
@@ -17,12 +18,14 @@ const initState: initStateType = {
     cardsTotalCount: 0,
     pageCount: 8,
     page: 1,
+    packUserId: ''
 }
 type initStateType = {
     cards: Array<CardType>,
     cardsTotalCount: number,
     pageCount: number,
     page: number,
+    packUserId: string,
 }
 
 export const CardsReducer = (state = initState, action: ActionsType) => {
@@ -34,7 +37,7 @@ export const CardsReducer = (state = initState, action: ActionsType) => {
                 ...state, page: action.page
             }
         case "CARDS/SET-CARDS-PAGE-COUNT":
-            return {...state, pageCount:action.pageCount}
+            return {...state, pageCount: action.pageCount}
         default:
             return state
     }
@@ -66,7 +69,7 @@ export const getCards = (id: string) => (dispatch: Dispatch, getState: () => App
             dispatch(setIsFetchingAC(false))
         })
 }
-export const addCard = (cardsPack_id: string, question:string, answer:string) => (dispatch: any) => {
+export const addCard = (cardsPack_id: string, question: string, answer: string) => (dispatch: any) => {
     cardsApi.addCard(cardsPack_id, question, answer)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
