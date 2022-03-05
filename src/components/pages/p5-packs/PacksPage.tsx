@@ -12,6 +12,7 @@ import {PacksPagination} from "./Pagination/PacksPagination";
 import {PacksSelect} from "./Select/Select";
 import styles from './PacksPage.module.scss'
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
+import {RangeSlider} from "./Range/Range";
 
 
 export const PacksPage = () => {
@@ -22,11 +23,13 @@ export const PacksPage = () => {
     const packsPageCount = useSelector<AppStateType, number>((state) => state.packs.pageCount)
     const parameter = useSelector<AppStateType, boolean>((state) => state.packs.parameter)
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
+    const min = useSelector<AppStateType, number>(state => (state.packs.minCardsCount))
+    const max = useSelector<AppStateType, number>(state => (state.packs.maxCardsCount))
     useEffect(() => {
         if (isAuthorized) {
             dispatch(getPacks())
         }
-    }, [isAuthorized, page, packsPageCount, parameter])
+    }, [isAuthorized, page, packsPageCount, parameter, min, max])
 
     const AddPack = () => {
         dispatch(addPack('Hello world!'))
@@ -45,14 +48,15 @@ export const PacksPage = () => {
             <div className={styles.leftPart}>
                 <h2 className={styles.title}>Show packs cards</h2>
                 <div className={styles.checkboxWrapper}>
-                    <div className={!parameter ? styles.my : `${styles.my} ${styles.active}`}
+                    <div className={!parameter ? `${styles.my} ${styles.notactive}` : `${styles.my} ${styles.active}`}
                          onClick={onClickMy}>My
                     </div>
-                    <div className={parameter ? styles.my : `${styles.my} ${styles.active}`}
+                    <div className={parameter ? `${styles.my} ${styles.notactive}` : `${styles.my} ${styles.active}`}
                          onClick={onClickAll}>All
                     </div>
                 </div>
-                <h3>Number of cards</h3>
+                <h3 className={styles.rangeTitle}>Number of cards</h3>
+                <RangeSlider/>
             </div>
             <div className={styles.rightPart}>
                 <h2>Packs list</h2>

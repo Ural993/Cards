@@ -33,8 +33,8 @@ export const authApi = {
     }
 }
 export const packsApi = {
-    getPacks(page: number = 0, pageCount: number = 10, user_id: string = '') {
-        return instance.get(`cards/pack?&pageCount=${pageCount}&page=${page}&user_id=${user_id}`)
+    getPacks(page: number = 0, pageCount: number = 10, user_id: string = '', max: number, min: number) {
+        return instance.get(`cards/pack`, {params: {page, pageCount, user_id, max, min}})
     },
     addPack(name: string) {
         return instance.post('cards/pack', {cardsPack: {name}})
@@ -51,7 +51,7 @@ export const cardsApi = {
     getCards(cardsPack_id: string, page: number, pageCount: number) {
         return instance.get(`cards/card`, {params: {cardsPack_id, page, pageCount}})
     },
-    addCard(cardsPack_id: string, question:string, answer:string) {
+    addCard(cardsPack_id: string, question: string, answer: string) {
         return instance.post('cards/card', {card: {cardsPack_id, question, answer}})
     },
     deleteCard(id: string) {
