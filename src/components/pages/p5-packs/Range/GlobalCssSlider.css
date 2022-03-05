@@ -1,0 +1,8 @@
+.MuiSlider-root {
+    color: #21268F !important;
+}
+
+.MuiSlider-valueLabel {
+    color: white !important;
+    background-color: #21268F !important;
+}

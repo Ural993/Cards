@@ -48,10 +48,10 @@ export const PacksPage = () => {
             <div className={styles.leftPart}>
                 <h2 className={styles.title}>Show packs cards</h2>
                 <div className={styles.checkboxWrapper}>
-                    <div className={!parameter ? `${styles.my} ${styles.notactive}` : `${styles.my} ${styles.active}`}
+                    <div className={!parameter ? `${styles.my} ${styles.inactive}` : `${styles.my} ${styles.active}`}
                          onClick={onClickMy}>My
                     </div>
-                    <div className={parameter ? `${styles.my} ${styles.notactive}` : `${styles.my} ${styles.active}`}
+                    <div className={parameter ? `${styles.my} ${styles.inactive}` : `${styles.my} ${styles.active}`}
                          onClick={onClickAll}>All
                     </div>
                 </div>

@@ -1,11 +1,16 @@
-import Slider from '@mui/material/Slider/Slider';
-import Typography from '@mui/material/Typography/Typography';
+import Slider from '@mui/material/Slider';
 import React from 'react';
-import styles from './Range.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../bll/store";
-import { setMaxMinValueAC } from '../../../../bll/reducers/r5-packs/packs-reducer';
+import {setMaxMinValueAC} from '../../../../bll/reducers/r5-packs/packs-reducer';
+import {createStyles} from '@mui/material/styles';
+import './GlobalCssSlider.css'
 
+const useStyles = createStyles(() => ({
+    root: {
+        color: 'red'
+    }
+}));
 
 export function RangeSlider() {
     const dispatch = useDispatch()
@@ -20,10 +25,11 @@ export function RangeSlider() {
     const handleChangeAnd = (event: any, newValue: any | number[]) => {
         dispatch(setMaxMinValueAC(newValue))
     };
-
+    //const classes = useStyles();
     return (
-        <div className={styles.range}>
+        <div>
             <Slider
+                className={'slider'}
                 value={value}
                 onChangeCommitted={handleChangeAnd}
                 onChange={handleChange}
