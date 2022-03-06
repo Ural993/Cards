@@ -5,11 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import styles from "./passwordRecovery.module.scss"
 import * as Yup from "yup";
 import mailImg from "../../../../common/images/mail.png"
-import { AppStateType } from "../../../../bll/store";
-import { passwordRecovery } from "../../../../bll/reducers/r3-passwordRecovery/pass-recovery-reducer";
-import { Preloader } from "../../../../common/components/c4-Preloader/Preloader";
-import SuperInputText from "../../../../common/components/c1-SuperInputText/SuperInputText";
-import SuperButton from "../../../../common/components/c2-SuperButton/SuperButton";
+import {AppStateType} from "../../../../bll/store";
+import {passwordRecovery} from "../../../../bll/reducers/r3-passwordRecovery/pass-recovery-reducer";
+import {Preloader} from "../../../../common/components/c4-Preloader/Preloader";
 
 export const PassRecoveryPage = () => {
     const dispatch = useDispatch()
@@ -34,13 +32,15 @@ export const PassRecoveryPage = () => {
         backgroundImage: `url(${mailImg})`,
     };
     if (isToggleError) {
-        return (<div className={styles.forgotPage}>
-            <div className={styles.container}>
-                <div className={styles.img} style={mail}> </div>
-                <h3 className={styles.title}>Check Email</h3>
-                <p className={styles.text}>We’ve sent an Email with instructions to {email}</p>
+        return (
+            <div className={styles.forgotPage}>
+                <div className={styles.container}>
+                    <div className={styles.img} style={mail}></div>
+                    <h3 className={styles.title}>Check Email</h3>
+                    <p className={styles.text}>We’ve sent an Email with instructions to {email}</p>
+                </div>
             </div>
-        </div>)
+        )
     }
 
     return (
@@ -51,24 +51,25 @@ export const PassRecoveryPage = () => {
                 <h3 className={styles.title}>Forgot your password?</h3>
 
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
-                    <SuperInputText
+                    <input
                         type={"text"}
+                        placeholder={'Email'}
                         {...formik.getFieldProps("email")}
                     />
                     {formik.touched.email && formik.errors.email ? (
                         <div className={styles.error}>{formik.errors.email}</div>
                     ) : null}
-                    <p className={styles.emailText}>Enter your email address and we will send you further
+                    <p className={styles.inpText}>Enter your email address and we will send you further
                         instructions </p>
                     <div className={styles.block}>
-                        <SuperButton
+                        <button
                             type={"submit"}
                             disabled={isFetching}
                         >
                             Send Instructions
-                        </SuperButton>
+                        </button>
                         <p className={styles.text}>Did you remember your password?</p>
-                        <Link className={styles.link} to="/login">Try logging in</Link>
+                        <Link className={styles.recoveryLink} to="/login">Try logging in</Link>
                     </div>
 
                 </form>

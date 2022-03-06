@@ -63,7 +63,6 @@ export const authorization = () => (dispatch: Dispatch) => {
 export const logout = () => (dispatch: Dispatch) => {
     authApi.logout()
         .then((res) => {
-            debugger
             dispatch(isAuthorizedAC(false))
         })
 }

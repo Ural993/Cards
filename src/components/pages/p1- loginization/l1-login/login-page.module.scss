@@ -1,4 +1,4 @@
-.forgotPage {
+.loginPage {
   height: 100vh;
   background: linear-gradient(to bottom, #E3D3E0, #AFA4CD);
   padding-top: 60px;
@@ -10,7 +10,6 @@
     margin: 0 auto;
     padding: 30px;
 
-
     .title {
       text-align: center;
       margin-bottom: 30px;
@@ -20,26 +19,16 @@
       line-height: 33px;
       color: #2D2E46;
     }
-    .img{
-      width: 108px;
-      height: 108px;
-      margin: 0 auto 24px;
-    }
-    p {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 24px;
-      text-align: center;
-      color: #2D2E46;
-      opacity: 0.7;
-    }
 
     .form {
       display: flex;
       flex-direction: column;
 
-      input {
+      .error {
+        color: #e30101;
+      }
+
+      .inp {
         border: none;
         border-bottom: 1px solid #24254A;
         margin-bottom: 20px;
@@ -60,45 +49,56 @@
           opacity: 0.5;
         }
       }
-      .inpText{
-        margin-top: 0;
-        margin-bottom: 40px;
+
+      .checkboxBlock {
+        input {
+          margin-right: 10px;
+        }
+
+        display: flex;
+        align-items: center;
       }
 
-      .block {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      .recoveryLink {
+        text-align: end;
+        text-decoration: none;
+        margin-bottom: 40px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        color: #2D2E46;
+      }
 
-        button {
-          width: 184px;
-          height: 36px;
-          background: #21268F;
-          box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-          border-radius: 30px;
-          color: white;
-          cursor: pointer;
-          border: none;
-          margin: 0 auto;
+      button {
+        width: 184px;
+        height: 36px;
+        background: #21268F;
+        box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+        border: none;
+        margin: 0 auto;
 
-          &:hover {
-            border: 1px solid;
-          }
+        &:hover {
+          border: 1px solid;
         }
       }
 
       p {
-        margin-top: 30px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 24px;
         text-align: center;
+        margin-top: 40px;
+        margin-bottom: 10px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
         color: #2D2E46;
         opacity: 0.5;
       }
 
-      .recoveryLink {
+      .registrationLink {
         text-align: center;
         text-decoration: none;
         font-style: normal;
@@ -106,12 +106,6 @@
         font-size: 16px;
         line-height: 24px;
         color: #21268F;
-      }
-
-      .error {
-        font-size: .8rem;
-        color: #e30101;
-        margin: 4px 0 10px 0;
       }
     }
 

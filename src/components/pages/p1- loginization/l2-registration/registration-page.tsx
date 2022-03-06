@@ -3,10 +3,10 @@ import styles from "./registration.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {Navigate} from "react-router-dom";
-import { AppStateType } from "../../../../bll/store";
-import { registerUser } from "../../../../bll/reducers/r2-registration/registation-reducer";
-import { Preloader } from "../../../../common/components/c4-Preloader/Preloader";
+import {Link, Navigate} from "react-router-dom";
+import {AppStateType} from "../../../../bll/store";
+import {registerUser} from "../../../../bll/reducers/r2-registration/registation-reducer";
+import {Preloader} from "../../../../common/components/c4-Preloader/Preloader";
 import SuperInputText from "../../../../common/components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../common/components/c2-SuperButton/SuperButton";
 
@@ -47,49 +47,57 @@ export const RegistrationPage = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <h2>
-                Sing Up
-            </h2>
+        <div className={styles.regPage}>
+            <div className={styles.container}>
+                <h2 className={styles.title}>
+                    Sing Up
+                </h2>
 
-            {isFetching && <Preloader/>}
+                {isFetching && <Preloader/>}
 
-            {/*Form and form errors*/}
-            <form onSubmit={formik.handleSubmit} className={styles.formContainer}>
-                <SuperInputText
-                    type={"text"}
-                    {...formik.getFieldProps("email")}
-                />
-                {formik.touched.email && formik.errors.email ? (
-                    <div className={styles.error}>{formik.errors.email}</div>
-                ) : null}
+                {/*Form and form errors*/}
+                <form onSubmit={formik.handleSubmit} className={styles.form}>
+                    <input
+                        type={"text"}
+                        placeholder={'Email'}
+                        {...formik.getFieldProps("email")}
+                    />
+                    {formik.touched.email && formik.errors.email ? (
+                        <div className={styles.error}>{formik.errors.email}</div>
+                    ) : null}
 
-                <SuperInputText
-                    type={"password"}
-                    {...formik.getFieldProps("password")}
-                />
-                {formik.touched.password && formik.errors.password ? (
-                    <div className={styles.error}>{formik.errors.password}</div>
-                ) : null}
+                    <input
+                        type={"password"}
+                        placeholder={'Password'}
+                        {...formik.getFieldProps("password")}
+                    />
+                    {formik.touched.password && formik.errors.password ? (
+                        <div className={styles.error}>{formik.errors.password}</div>
+                    ) : null}
 
-                <SuperInputText
-                    type={"password"}
-                    {...formik.getFieldProps("passwordConfirm")}
-                />
-                {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? (
-                    <div className={styles.error}>{formik.errors.passwordConfirm}</div>
-                ) : null}
+                    <input
+                        type={"password"}
+                        placeholder={'Confirm password'}
+                        {...formik.getFieldProps("passwordConfirm")}
+                    />
+                    {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? (
+                        <div className={styles.error}>{formik.errors.passwordConfirm}</div>
+                    ) : null}
 
-                <SuperButton
-                    type={"submit"}
-                    disabled={isFetching}
-                >
-                    Register
-                </SuperButton>
-            </form>
+                    <button
+                        type={"submit"}
+                        disabled={isFetching}
+                    >
+                        Register
+                    </button>
+                    <p>You have account?</p>
+                    <Link className={styles.loginLink} to={'/login'}>Sign In</Link>
+                </form>
 
-            {/*Request Error*/}
-            {registrationError && <div>{registrationError}</div>}
+                {/*Request Error*/}
+                {registrationError && <div>{registrationError}</div>}
+            </div>
         </div>
+
     )
 }

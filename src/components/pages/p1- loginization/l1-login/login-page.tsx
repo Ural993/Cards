@@ -1,5 +1,4 @@
 import React from "react"
-import styles from "../l3-pass-recovery/passwordRecovery.module.scss";
 import {Preloader} from "../../../../common/components/c4-Preloader/Preloader";
 import SuperInputText from "../../../../common/components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../common/components/c2-SuperButton/SuperButton";
@@ -8,7 +7,8 @@ import {AppStateType} from "../../../../bll/store";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {login} from "../../../../bll/reducers/r1-login/login-reduser";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
+import styles from './login-page.module.scss'
 
 export const LoginPage = () => {
     const dispatch = useDispatch()
@@ -23,6 +23,8 @@ export const LoginPage = () => {
             rememberMe: false,
         },
         validationSchema: Yup.object({
+            email: Yup.string()
+                .required("Required"),
             password: Yup.string()
                 .required("Required"),
         }),
@@ -35,43 +37,52 @@ export const LoginPage = () => {
         return <Navigate to={'/profile'}/>
     }
 
-    return (<div className={styles.loginPage}>
-        {isFetching && <Preloader/>}
-        <div className={styles.container}>
+    return (
+        <div className={styles.loginPage}>
+            {isFetching && <Preloader/>}
+            <div className={styles.container}>
 
-            <h3 className={styles.title}>Sign In</h3>
+                <h3 className={styles.title}>Sign In</h3>
 
-            <form onSubmit={formik.handleSubmit} className={styles.form}>
-                <SuperInputText
-                    type={"email"}
-                    {...formik.getFieldProps("email")}
-                />
-                {formik.touched.email && formik.errors.email ? (
-                    <div className={styles.error}>{formik.errors.email}</div>
-                ) : null}
-                <SuperInputText
-                    type={"password"}
-                    {...formik.getFieldProps("password")}
-                />
-                {formik.touched.password && formik.errors.password ? (
-                    <div className={styles.error}>{formik.errors.password}</div>
-                ) : null}
-                <SuperInputText
-                    type={"checkbox"}
-                    {...formik.getFieldProps("rememberMe")}
-                />
-                <p className={styles.emailText}>Create new password and we will send you further instructions to
-                    email</p>
-                <div className={styles.block}>
-                    <SuperButton
+                <form onSubmit={formik.handleSubmit} className={styles.form}>
+                    <input
+                        type={"email"}
+                        className={styles.inp}
+                        placeholder={'Email'}
+                        {...formik.getFieldProps("email")}
+                    />
+                    {formik.touched.email && formik.errors.email ? (
+                        <div className={styles.error}>{formik.errors.email}</div>
+                    ) : null}
+                    <input
+                        type={"password"}
+                        className={styles.inp}
+                        placeholder={'Password'}
+                        {...formik.getFieldProps("password")}
+                    />
+                    {formik.touched.password && formik.errors.password ? (
+                        <div className={styles.error}>{formik.errors.password}</div>
+                    ) : null}
+                    <div className={styles.checkboxBlock}>
+                        <input
+                            type={"checkbox"}
+                            {...formik.getFieldProps("rememberMe")}
+                        />
+                        <span>remember me</span>
+                    </div>
+                    <Link className={styles.recoveryLink} to={'/recovery'}>Forgot password</Link>
+                    <button
                         type={"submit"}
                         disabled={isFetching}
                     >
                         Login
-                    </SuperButton>
-                </div>
-            </form>
-        </div>
-        {error && <div>{error}</div>}
-    </div>)
+                    </button>
+                    <p>Don’t have an account?</p>
+                    <Link className={styles.registrationLink} to={'/registration'}>Sign Up</Link>
+                </form>
+
+
+            </div>
+            {error && <div>{error}</div>}
+        </div>)
 }
