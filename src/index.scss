@@ -7,5 +7,7 @@
 }
 
 body{
-  background-color: $mainBackground;
+  background: $mainBackground;
+  background-size: cover;
+  height: 100%;
 }

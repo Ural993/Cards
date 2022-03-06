@@ -1,6 +1,7 @@
 
 .app {
   .header {
+    position: relative;
     height: 60px;
     background-color: #EBE0E9;
     display: flex;
@@ -18,6 +19,25 @@
       background-repeat: no-repeat;
       padding-left: 20px;
       height: 36px;
+    }
+    .logoutBlock{
+      position: absolute;
+      right: 30px;
+      button{
+        width: 120px;
+        height: 36px;
+        background: #D7D8EF;
+        border-radius: 30px;
+        color: #21268F;
+        cursor: pointer;
+        border: none;
+
+        &:hover {
+          background: rgba(220, 220, 240, 1);
+          border: 1px solid;
+        }
+      }
+
     }
   }
 }

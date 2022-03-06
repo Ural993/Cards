@@ -1,37 +1,32 @@
+import React, {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux";
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {
-    addPack,
-    getMyPacksParameterAC,
-    getPacks,
-    PackType,
-} from "../../../bll/reducers/r5-packs/packs-reducer";
 import {AppStateType} from "../../../bll/store";
-import {PacksList} from "./PacksList";
-import {PacksPagination} from "./Pagination/PacksPagination";
-import {PacksSelect} from "./Select/Select";
-import styles from './PacksPage.module.scss'
-import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
-import {RangeSlider} from "./Range/Range";
-import {AddPackModal} from "./AddPackModal/AddPackModal";
+import {logout} from "../../../bll/reducers/r4-app/app-reducer";
 import {Navigate} from "react-router-dom";
+import styles from './ProfilePage.module.scss'
+import {RangeSlider} from "../p5-packs/Range/Range";
+import {PacksList} from "../p5-packs/PacksList";
+import {PacksPagination} from "../p5-packs/Pagination/PacksPagination";
+import {PacksSelect} from "../p5-packs/Select/Select";
+import {AddPackModal} from "../p5-packs/AddPackModal/AddPackModal";
+import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
+import {getPacks, PackType} from "../../../bll/reducers/r5-packs/packs-reducer";
 
-
-export const PacksPage = () => {
+export const ProfilePage = () => {
+    const userName = useSelector<AppStateType, string>(state => state.app.userDate.name)
     const dispatch = useDispatch()
     const packs = useSelector<AppStateType, Array<PackType>>(state => state.packs.packs)
     const isAuthorized = useSelector<AppStateType, boolean>(state => state.app.isAuthorized)
     const page = useSelector<AppStateType, number>((state) => state.packs.page)
     const packsPageCount = useSelector<AppStateType, number>((state) => state.packs.pageCount)
-    const parameter = useSelector<AppStateType, boolean>((state) => state.packs.parameter)
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
     const min = useSelector<AppStateType, number>(state => (state.packs.minCardsCount))
     const max = useSelector<AppStateType, number>(state => (state.packs.maxCardsCount))
     useEffect(() => {
         if (isAuthorized) {
-            dispatch(getPacks(parameter))
+            dispatch(getPacks(true))
         }
-    }, [isAuthorized, page, packsPageCount, parameter, min, max])
+    }, [isAuthorized, page, packsPageCount, min, max])
 
     const [wantToAdd, setWantToAdd] = useState(false)
 
@@ -42,29 +37,24 @@ export const PacksPage = () => {
         setWantToAdd(false)
     }
 
-    const onClickMy = () => {
-        dispatch(getMyPacksParameterAC(true))
-    }
-    const onClickAll = () => {
-        dispatch(getMyPacksParameterAC(false))
-    }
     if (isFetching) {
         return <Preloader/>
     }
+    if (!isAuthorized) {
+        return <Navigate to={'/login'}/>
+    }
     return (
-        <div className={styles.packsPage}>
+        <div className={styles.profilePage}>
             <div className={styles.leftPart}>
-                <h2 className={styles.title}>Show packs cards</h2>
-                <div className={styles.checkboxWrapper}>
-                    <div className={!parameter ? `${styles.my} ${styles.inactive}` : `${styles.my} ${styles.active}`}
-                         onClick={onClickMy}>My
-                    </div>
-                    <div className={parameter ? `${styles.my} ${styles.inactive}` : `${styles.my} ${styles.active}`}
-                         onClick={onClickAll}>All
-                    </div>
+                <div className={styles.profileBlock}>
+                    <img className={styles.img} src="" alt=""/>
+                    <h2 className={styles.title}>{userName}</h2>
                 </div>
-                <h3 className={styles.rangeTitle}>Number of cards</h3>
-                <RangeSlider/>
+                <div className={styles.rangeBlock}>
+                    <h3 className={styles.rangeTitle}>Number of cards</h3>
+                    <RangeSlider/>
+                </div>
+
             </div>
             <div className={styles.rightPart}>
                 <h2>Packs list</h2>
@@ -83,6 +73,5 @@ export const PacksPage = () => {
             </div>
             {wantToAdd && <AddPackModal closeModal={closeModal}/>}
         </div>
-
     )
 }

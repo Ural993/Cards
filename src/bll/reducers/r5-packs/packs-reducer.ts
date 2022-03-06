@@ -66,9 +66,9 @@ export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COU
 export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
 export const setMaxMinValueAC = (value: any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
 
-export const getPacks = () => (dispatch: Dispatch, getState: () => AppStateType) => {
+export const getPacks = (parameter?:boolean) => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
-    let {page, pageCount, parameter, maxCardsCount, minCardsCount} = getState().packs
+    let {page, pageCount, maxCardsCount, minCardsCount} = getState().packs
     let user_id
     parameter ? user_id = getState().app.userDate._id : user_id = ''
     packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount)
