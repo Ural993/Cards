@@ -14,6 +14,7 @@ import {PacksPage} from "./components/pages/p5-packs/PacksPage";
 import {CardsPage} from "./components/pages/p6-cards/CardsPage";
 import profileImg from "./common/images/Profile.svg";
 import packsListImg from "./common/images/Packlists.svg";
+import LearnPage from "./components/pages/p7-learn/learnPage";
 
 
 export const App = () => {
@@ -58,6 +59,7 @@ export const App = () => {
                         <Route path={"test"} element={<TestPage/>}/>
                         <Route path={"packs"} element={<PacksPage/>}/>
                         <Route path={"cards/:id"} element={<CardsPage/>}/>
+                        <Route path={"learn/:id"} element={<LearnPage/>}/>
                     </Routes>
                 </div>
             </HashRouter>

@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {deletePack, PackType, updatePack} from "../../../bll/reducers/r5-packs/packs-reducer";
 import styles from './Pack.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../bll/store";
+import {AddPackModal} from "./AddPackModal/AddPackModal";
+import {EditPackModal} from "./EditPackModal/EditPackModal";
 
 type PropsType = {
     pack: PackType
@@ -20,6 +22,15 @@ export const Pack = ({pack, ...props}: PropsType) => {
     const updatePackBtn = (id: string, newName: string = 'New name') => {
         dispatch(updatePack(id, newName))
     }
+
+    const [wantToEdit, setWantToEdit] = useState(false)
+
+    const openModal = () => {
+        setWantToEdit(true)
+    }
+    const closeModal = () => {
+        setWantToEdit(false)
+    }
     return (
         <div className={styles.pack}>
             <Link to={`/cards/${pack._id}`} className={styles.name}>{pack.name}</Link>
@@ -33,16 +44,16 @@ export const Pack = ({pack, ...props}: PropsType) => {
                         <button className={styles.dellBtn} onClick={() => deletePackBtn(pack._id)}>Delete</button>
                     </div>
                     <div>
-                        <button onClick={() => updatePackBtn(pack._id)}>Edit</button>
+                        <button onClick={openModal}>Edit</button>
+                        {/*<button onClick={() => updatePackBtn(pack._id)}>Edit</button>*/}
                     </div>
                 </>
                 }
-
-                <div>
-                    <button>Learn</button>
+                <div className={styles.learnBtnWrapper}>
+                    <Link className={styles.learnBtn} to={`/learn/${pack._id}`}>Learn</Link>
                 </div>
             </div>
-
+            {wantToEdit && <EditPackModal closeModal={closeModal} id={pack._id}/>}
         </div>
     )
 }

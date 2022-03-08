@@ -59,6 +59,9 @@ export const cardsApi = {
     },
     updateCard(_id: string) {
         return instance.put('cards/card', {card: {_id}})
+    },
+    setGrade(card_id: string, grade: number) {
+        return instance.put('cards/grade', {grade, card_id})
     }
 }
 type RegisterRequestType = {

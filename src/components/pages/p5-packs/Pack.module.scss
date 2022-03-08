@@ -52,5 +52,24 @@
       background-color: #F1453D;;
       color: white;
     }
+
+    .learnBtnWrapper {
+      width: 48px;
+      height: 24px;
+      background-color: #D7D8EF;
+      margin-left: 6px;
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+
+
+      .learnBtn {
+        text-decoration: none;
+        color: #21268F;
+        font-size: 13.3px;
+        padding: 4px 8px;
+        font-family: "Arial";
+      }
+    }
   }
 }

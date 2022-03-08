@@ -11,6 +11,11 @@ export type CardType = {
     updated: string,
     _id: string,
     user_id: string
+    shots: number,
+    type: string,
+    rating: number,
+    more_id: string,
+    created: string
 }
 
 const initState: initStateType = {
@@ -85,6 +90,12 @@ export const updateCard = (cardsPack_id: string, card_id: string) => (dispatch: 
     cardsApi.updateCard(card_id)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
+        })
+}
+export const setGrade = (card_id: string, grade: number) => (dispatch: any) => {
+    cardsApi.setGrade(card_id, grade)
+        .then((res) => {
+            // dispatch(getCards(cardsPack_id))
         })
 }
 

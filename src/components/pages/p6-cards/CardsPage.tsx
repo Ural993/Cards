@@ -9,9 +9,11 @@ import {CardsPagination} from "./Pagination/CardsPagination";
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 import {CardsSelect} from "./Select/Select";
 import {AddCardModal} from "./AddCardModal/AddCardModal";
+import {PackType} from "../../../bll/reducers/r5-packs/packs-reducer";
 
 
 export const CardsPage = () => {
+    debugger
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, Array<CardType>>((state) => state.cards.cards)
     const page = useSelector<AppStateType, number>((state) => state.cards.page)
@@ -19,7 +21,7 @@ export const CardsPage = () => {
     const isAuthorized = useSelector<AppStateType, boolean>(state => state.app.isAuthorized)
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
     let userId = useSelector<AppStateType, string>(state => state.app.userDate._id)
-    const packUserId = useSelector<AppStateType, string>((state) => state.cards.packUserId)
+    let packUserId = useSelector<AppStateType, string>((state) => state.packs.packs[0].user_id)
 
 
     const [wantToAdd, setWantToAdd] = useState(false)

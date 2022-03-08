@@ -18,7 +18,7 @@ type initStateType = {
     cardPacksTotalCount: number
     pageCount: number
     page: number
-    parameter: boolean
+    isMyPacks: boolean
     maxCardsCount: number,
     minCardsCount: number,
 }
@@ -28,7 +28,7 @@ const initState = {
     cardPacksTotalCount: 0,
     pageCount: 8,
     page: 1,
-    parameter: false,
+    isMyPacks: false,
     maxCardsCount: 200,
     minCardsCount: 0,
 }
@@ -49,7 +49,7 @@ export const PacksReducer = (state: initStateType = initState, action: ActionsTy
         case "PACKS/SET-PAGE-COUNT":
             return {...state, pageCount: action.pageCount}
         case "PACKS/GET-MY-PACKS":
-            return {...state, parameter: action.parameter}
+            return {...state, isMyPacks: action.parameter}
         case "PACKS/SET-MIN-MAX-VALUE":
             return {...state, minCardsCount: action.value[0], maxCardsCount: action.value[1]}
         default :
@@ -66,11 +66,11 @@ export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COU
 export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
 export const setMaxMinValueAC = (value: any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
 
-export const getPacks = (parameter?:boolean) => (dispatch: Dispatch, getState: () => AppStateType) => {
+export const getPacks = (isMyPacks?: boolean) => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
     let {page, pageCount, maxCardsCount, minCardsCount} = getState().packs
     let user_id
-    parameter ? user_id = getState().app.userDate._id : user_id = ''
+    isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
     packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount)
         .then((res) => {
             let {cardPacks, cardPacksTotalCount} = res.data
@@ -83,22 +83,25 @@ export const getPacks = (parameter?:boolean) => (dispatch: Dispatch, getState: (
             dispatch(setIsFetchingAC(false))
         })
 }
-export const addPack = (name: string) => (dispatch: any) => {
+export const addPack = (name: string) => (dispatch: any, getState: () => AppStateType) => {
+    let isMyPacks = getState().packs.isMyPacks
     packsApi.addPack(name)
         .then((res) => {
-            dispatch(getPacks())
+            dispatch(getPacks(isMyPacks))
         })
 }
-export const deletePack = (id: string) => (dispatch: any) => {
+export const deletePack = (id: string) => (dispatch: any, getState: () => AppStateType) => {
+    let isMyPacks = getState().packs.isMyPacks
     packsApi.deletePack(id)
         .then((res) => {
-            dispatch(getPacks())
+            dispatch(getPacks(isMyPacks))
         })
 }
-export const updatePack = (id: string, newName: string) => (dispatch: any) => {
+export const updatePack = (id: string, newName: string) => (dispatch: any, getState: () => AppStateType) => {
+    let isMyPacks = getState().packs.isMyPacks
     packsApi.updatePack(id, newName)
         .then((res) => {
-            dispatch(getPacks())
+            dispatch(getPacks(isMyPacks))
         })
 }
 
