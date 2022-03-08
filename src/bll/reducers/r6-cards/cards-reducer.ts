@@ -86,8 +86,8 @@ export const deleteCard = (cardsPack_id: string, card_id: string) => (dispatch: 
             dispatch(getCards(cardsPack_id))
         })
 }
-export const updateCard = (cardsPack_id: string, card_id: string) => (dispatch: any) => {
-    cardsApi.updateCard(card_id)
+export const updateCard = (cardsPack_id: string, card_id: string, question:string, answer:string) => (dispatch: any) => {
+    cardsApi.updateCard(card_id, question, answer)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
         })

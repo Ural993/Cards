@@ -6,22 +6,23 @@ import {updatePack} from "../../../../bll/reducers/r5-packs/packs-reducer";
 
 type EditPackModalPropsType = {
     closeModal: () => void,
-    id:string
+    id:string,
+    packName:string
 }
-export const EditPackModal = ModalHOC(({closeModal, id}: EditPackModalPropsType) => {
+export const EditPackModal = ModalHOC(({closeModal, id, packName}: EditPackModalPropsType) => {
         const dispatch = useDispatch()
 
         const EditPack = () => {
-            dispatch(updatePack(id, packName))
+            dispatch(updatePack(id, newPackName))
             closeModal()
         }
-        let [packName, setPackName] = useState('')
+        let [newPackName, setNewPackName] = useState(packName)
 
         const onChangePackName = (e: ChangeEvent<HTMLInputElement>) => {
-            setPackName(e.currentTarget.value)
+            setNewPackName(e.currentTarget.value)
         }
         return (
-            <div className={styles.addCardModal}>
+            <div className={styles.editPackModal}>
                 <h3 className={styles.title}>Edit pack</h3>
                 <div className="inputs">
                     <input
@@ -29,7 +30,8 @@ export const EditPackModal = ModalHOC(({closeModal, id}: EditPackModalPropsType)
                         className={styles.inp}
                         placeholder={'Pack name'}
                         onChange={onChangePackName}
-                        value={packName}
+                        value={newPackName}
+                        autoFocus
                     />
                 </div>
                 <div className="buttons">

@@ -1,10 +1,9 @@
 import React, {useState} from "react";
-import {deletePack, PackType, updatePack} from "../../../bll/reducers/r5-packs/packs-reducer";
+import {deletePack, PackType} from "../../../bll/reducers/r5-packs/packs-reducer";
 import styles from './Pack.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../bll/store";
-import {AddPackModal} from "./AddPackModal/AddPackModal";
 import {EditPackModal} from "./EditPackModal/EditPackModal";
 
 type PropsType = {
@@ -17,10 +16,6 @@ export const Pack = ({pack, ...props}: PropsType) => {
 
     const deletePackBtn = (id: string) => {
         dispatch(deletePack(id))
-    }
-
-    const updatePackBtn = (id: string, newName: string = 'New name') => {
-        dispatch(updatePack(id, newName))
     }
 
     const [wantToEdit, setWantToEdit] = useState(false)
@@ -53,7 +48,7 @@ export const Pack = ({pack, ...props}: PropsType) => {
                     <Link className={styles.learnBtn} to={`/learn/${pack._id}`}>Learn</Link>
                 </div>
             </div>
-            {wantToEdit && <EditPackModal closeModal={closeModal} id={pack._id}/>}
+            {wantToEdit && <EditPackModal closeModal={closeModal} id={pack._id} packName={pack.name}/>}
         </div>
     )
 }
