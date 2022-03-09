@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/friday-project/static/css/main.899be0ee.css",
-    "main.js": "/friday-project/static/js/main.605cb1aa.js",
-    "static/js/787.7136d4b4.chunk.js": "/friday-project/static/js/787.7136d4b4.chunk.js",
-    "index.html": "/friday-project/index.html",
-    "main.899be0ee.css.map": "/friday-project/static/css/main.899be0ee.css.map",
-    "main.605cb1aa.js.map": "/friday-project/static/js/main.605cb1aa.js.map",
-    "787.7136d4b4.chunk.js.map": "/friday-project/static/js/787.7136d4b4.chunk.js.map"
+    "main.css": "/Cards/static/css/main.74176dae.css",
+    "main.js": "/Cards/static/js/main.c677d65f.js",
+    "static/js/787.28cb0dcd.chunk.js": "/Cards/static/js/787.28cb0dcd.chunk.js",
+    "static/media/Packlists.svg": "/Cards/static/media/Packlists.aa25dbf60c6b4e7b7e02119ffd295014.svg",
+    "static/media/loader.svg": "/Cards/static/media/loader.6bbff2a4f22f323f0a79257e2df06693.svg",
+    "index.html": "/Cards/index.html",
+    "static/media/Profile.svg": "/Cards/static/media/Profile.b2a040590f850e65b77f9013668b4d3f.svg",
+    "static/media/Cross.svg": "/Cards/static/media/Cross.45fc2a18a856ec9dcb9f26ae1f5917a6.svg",
+    "main.74176dae.css.map": "/Cards/static/css/main.74176dae.css.map",
+    "main.c677d65f.js.map": "/Cards/static/js/main.c677d65f.js.map",
+    "787.28cb0dcd.chunk.js.map": "/Cards/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.899be0ee.css",
-    "static/js/main.605cb1aa.js"
+    "static/css/main.74176dae.css",
+    "static/js/main.c677d65f.js"
   ]
 }
