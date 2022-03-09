@@ -8,38 +8,46 @@
     align-items: center;
     justify-content: center;
 
-    .packsListImg {
-      background-repeat: no-repeat;
-      padding-left: 40px;
-      margin-right: 20px;
-      height: 36px;
+    .packsListBtn, .profileBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 137px;
+      height: 100%;
+
+      a {
+        text-decoration: none;
+        margin-left: 10px;
+      }
     }
 
-    .profileImg {
-      background-repeat: no-repeat;
-      padding-left: 20px;
-      height: 36px;
-    }
-    .logoutBlock{
-      position: absolute;
-      right: 30px;
-      button{
-        width: 120px;
-        height: 36px;
-        background: #D7D8EF;
-        border-radius: 30px;
-        color: #21268F;
-        cursor: pointer;
-        border: none;
-
-        &:hover {
-          background: rgba(220, 220, 240, 1);
-          border: 1px solid;
-        }
+      .active {
+        background-color: #DCCCDB;
+        border-bottom: 3px solid #21268F;
       }
 
+      .logoutBlock {
+        position: absolute;
+        right: 30px;
+
+        button {
+          width: 120px;
+          height: 36px;
+          background: #D7D8EF;
+          border-radius: 30px;
+          color: #21268F;
+          cursor: pointer;
+          border: none;
+
+          &:hover {
+            background: rgba(220, 220, 240, 1);
+            border: 1px solid;
+          }
+        }
+
+      }
     }
   }
-}
+
 
 

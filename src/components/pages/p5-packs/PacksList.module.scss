@@ -10,9 +10,10 @@
     font-weight: 700;
     background-color: #F8F7FD;
     padding: 0 15px;
+    justify-content: space-between;
 
     .name {
-      width: 150px;
+      width: 120px;
     }
 
     .cardsCount {
@@ -31,7 +32,7 @@
     }
 
     .actions {
-      width: 136px;
+      width: 146px;
       text-align: center;
     }
   }

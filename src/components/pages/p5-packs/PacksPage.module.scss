@@ -1,3 +1,5 @@
+@import "../../../common/styles/sass/variables";
+
 .packsPage {
   background: linear-gradient(to bottom, #E3D3E0, #AFA4CD);
   padding-top: 30px;
@@ -6,7 +8,7 @@
   .container {
     display: flex;
     width: 1008px;
-    margin: 30px auto;
+    margin: 0 auto;
     border-radius: 8px;
     background-color: #FEFEFF;
 
@@ -14,9 +16,16 @@
       min-width: 243px;
       background-color: #ECECF9;
       padding: 24px 24px 0 24px;
+      border-radius: 8px 0 0 8px;
 
       .title {
         margin-bottom: 20px;
+        font-family: $firstFont;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
+        color: #2D2E46;
       }
 
       .rangeTitle {
@@ -30,7 +39,7 @@
         display: flex;
         text-align: center;
         cursor: pointer;
-        margin-bottom: 45px;
+        margin: 0 auto 45px;
         border-radius: 2px;
       }
 
@@ -66,12 +75,18 @@
     }
 
     .rightPart {
-      h2 {
-        margin-bottom: 15px;
-      }
-
       width: 100%;
       padding: 24px 30px 10px 30px;
+
+      .title {
+        font-family: $firstFont;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 33px;
+        color: #2D2E46;
+        margin-bottom: 15px;
+      }
 
       .block {
         display: flex;
@@ -125,7 +140,6 @@
             border: 1px solid;
           }
         }
-
       }
 
       .pagSelectBlock {

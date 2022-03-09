@@ -3,11 +3,12 @@ import styles from './EditPackModal.module.scss'
 import {useDispatch} from "react-redux";
 import {ChangeEvent, useState} from "react";
 import {updatePack} from "../../../../bll/reducers/r5-packs/packs-reducer";
+import cross from "../../../../common/images/Cross.svg";
 
 type EditPackModalPropsType = {
     closeModal: () => void,
-    id:string,
-    packName:string
+    id: string,
+    packName: string
 }
 export const EditPackModal = ModalHOC(({closeModal, id, packName}: EditPackModalPropsType) => {
         const dispatch = useDispatch()
@@ -23,7 +24,11 @@ export const EditPackModal = ModalHOC(({closeModal, id, packName}: EditPackModal
         }
         return (
             <div className={styles.editPackModal}>
-                <h3 className={styles.title}>Edit pack</h3>
+                <div className={styles.header}>
+                    <h3 className={styles.title}>Edit pack</h3>
+                    <img src={cross} alt="" onClick={closeModal}/>
+                </div>
+
                 <div className="inputs">
                     <input
                         type="text"
@@ -34,9 +39,9 @@ export const EditPackModal = ModalHOC(({closeModal, id, packName}: EditPackModal
                         autoFocus
                     />
                 </div>
-                <div className="buttons">
-                    <button onClick={closeModal}>Cancel</button>
-                    <button onClick={EditPack}>Save</button>
+                <div className={styles.buttons}>
+                    <button className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
+                    <button className={styles.saveBtn} onClick={EditPack}>Save</button>
                 </div>
             </div>
         )

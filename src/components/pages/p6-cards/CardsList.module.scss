@@ -12,7 +12,9 @@
   height: 48px;
   font-weight: 700;
   background-color: #F8F7FD;
-  padding: 0 10px;
+  padding: 0 20px;
+  justify-content: space-between;
+
 
   .question {
     width: 150px;
@@ -20,13 +22,23 @@
 
   .answer {
     width: 150px;
+    text-align: center;
+
   }
 
   .updated {
     width: 200px;
+    text-align: center;
+
   }
 
   .grade {
     width: 200px;
+    text-align: center;
+
+  }
+  .actions{
+    width: 200px;
+    text-align: center;
   }
 }

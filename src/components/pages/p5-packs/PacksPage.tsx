@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     getMyPacksParameterAC,
     getPacks,
-    PackType,
+    PackType, setPackNameForSearch,
 } from "../../../bll/reducers/r5-packs/packs-reducer";
 import {AppStateType} from "../../../bll/store";
 import {PacksList} from "./PacksList";
@@ -13,6 +13,7 @@ import styles from './PacksPage.module.scss'
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 import {RangeSlider} from "./Range/Range";
 import {AddPackModal} from "./AddPackModal/AddPackModal";
+import {Navigate} from "react-router-dom";
 
 
 export const PacksPage = () => {
@@ -25,11 +26,12 @@ export const PacksPage = () => {
     const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
     const min = useSelector<AppStateType, number>(state => (state.packs.minCardsCount))
     const max = useSelector<AppStateType, number>(state => (state.packs.maxCardsCount))
+    const packNameForSearch = useSelector<AppStateType, string>(state => (state.packs.packNameForSearch))
     useEffect(() => {
         if (isAuthorized) {
             dispatch(getPacks(isMyPacks))
         }
-    }, [isAuthorized, page, packsPageCount, isMyPacks, min, max])
+    }, [isAuthorized, page, packsPageCount, isMyPacks, min, max, packNameForSearch])
 
     const [wantToAdd, setWantToAdd] = useState(false)
 
@@ -46,8 +48,19 @@ export const PacksPage = () => {
     const onClickAll = () => {
         dispatch(getMyPacksParameterAC(false))
     }
+    let [searchValue, setSearchValue] = useState(packNameForSearch)
+    const onChangeSearchInp = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.currentTarget.value
+        setSearchValue(value)
+    }
+    const onClickSearchBtn = () => {
+        dispatch(setPackNameForSearch(searchValue))
+    }
     if (isFetching) {
         return <Preloader/>
+    }
+    if (!isAuthorized) {
+        return <Navigate to={'/login'}/>
     }
     return (
         <div className={styles.packsPage}>
@@ -67,18 +80,21 @@ export const PacksPage = () => {
                     <RangeSlider/>
                 </div>
                 <div className={styles.rightPart}>
-                    <h2>Packs list</h2>
+                    <h2 className={styles.title}>Packs list</h2>
                     <div className={styles.block}>
                         <div className={styles.searchBlock}>
-                            <input className={styles.searchInp} type="text" placeholder={'Search...'}/>
-                            <button className={styles.searchBtn}>Search</button>
+                            <input className={styles.searchInp} type="text" placeholder={'Search...'}
+                                   onChange={onChangeSearchInp} value={searchValue}/>
+                            <button className={styles.searchBtn} onClick={onClickSearchBtn}>Search</button>
                         </div>
                         <button className={styles.addPackBtn} onClick={openModal}>Add new pack</button>
                     </div>
                     <PacksList packs={packs}/>
                     <div className={styles.pagSelectBlock}>
                         <PacksPagination/>
-                        <div className={styles.selectWrapper}><span>Show</span> <PacksSelect/> Cards per Page</div>
+                        <div className={styles.selectWrapper}>
+                            <span>Show</span> <PacksSelect/> Cards per Page
+                        </div>
                     </div>
                 </div>
                 {wantToAdd && <AddPackModal closeModal={closeModal}/>}

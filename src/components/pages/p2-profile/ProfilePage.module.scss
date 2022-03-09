@@ -13,7 +13,7 @@
     .leftPart {
       min-width: 243px;
       background-color: #ECECF9;
-
+      border-radius: 8px 0 0 8px;
 
       .profileBlock {
         display: flex;
@@ -23,6 +23,7 @@
         background-color: #D9D9F1;
         padding: 24px 24px 0 24px;
         text-align: center;
+        border-radius: 8px 0 0 0;
 
         .img {
           width: 96px;
@@ -120,6 +121,17 @@
             margin-right: 10px;
           }
         }
+      }
+
+      .notPacks {
+        text-align: center;
+        margin-top: 150px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        color: #000000;
+        opacity: 0.5;
       }
     }
   }

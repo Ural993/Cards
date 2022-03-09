@@ -3,17 +3,20 @@
   height: 48px;
   align-items: center;
   padding: 0 15px;
+  justify-content: space-between;
 
   &:nth-child(2n) {
     background-color: #F8F7FD;
   }
 
   .name {
-    width: 150px;
+    width: 120px;
+    max-height: 48px;
     text-decoration: none;
     color: black;
     cursor: pointer;
-    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .cardsCount {
@@ -33,7 +36,7 @@
   }
 
   .buttons {
-    width: 136px;
+    width: 146px;
     display: flex;
     justify-content: center;
 

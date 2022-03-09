@@ -23,7 +23,8 @@ const initState: initStateType = {
     cardsTotalCount: 0,
     pageCount: 8,
     page: 1,
-    packUserId: ''
+    packUserId: '',
+    cardAnswerForSearch: ''
 }
 type initStateType = {
     cards: Array<CardType>,
@@ -31,6 +32,7 @@ type initStateType = {
     pageCount: number,
     page: number,
     packUserId: string,
+    cardAnswerForSearch: string
 }
 
 export const CardsReducer = (state = initState, action: ActionsType) => {
@@ -48,6 +50,8 @@ export const CardsReducer = (state = initState, action: ActionsType) => {
             }
         case "CARDS/SET-CARDS-PAGE-COUNT":
             return {...state, pageCount: action.pageCount}
+        case "CARDS/SET-CARD-ANSWER-FOR-SEARCH":
+            return {...state, cardAnswerForSearch: action.cardAnswerForSearch}
         default:
             return state
     }
@@ -59,15 +63,17 @@ const setCardsAC = (cards: Array<CardType>, cardsTotalCount: number, packUserId:
     cardsTotalCount, packUserId
 } as const)
 export const setCardsPageAC = (page: number) => ({type: "CARDS/SET-CARDS-PAGE", page} as const)
-
 export const setCardsPageCountAC = (pageCount: number) => ({type: "CARDS/SET-CARDS-PAGE-COUNT", pageCount} as const)
+export const setCardAnswerForSearchAC = (cardAnswerForSearch: string) => ({
+    type: "CARDS/SET-CARD-ANSWER-FOR-SEARCH",
+    cardAnswerForSearch
+} as const)
 //Thunks
 export const getCards = (id: string) => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
-    let page = getState().cards.page
-    let pageCount = getState().cards.pageCount
+    let{page, pageCount, cardAnswerForSearch} = getState().cards
 
-    cardsApi.getCards(id, page, pageCount)
+    cardsApi.getCards(id, page, pageCount, cardAnswerForSearch)
         .then((res) => {
             let {cards, cardsTotalCount, packUserId} = res.data
             dispatch(setCardsAC(cards, cardsTotalCount, packUserId))
@@ -108,4 +114,5 @@ export const setGrade = (card_id: string, grade: number) => (dispatch: any) => {
 type setCardsACType = ReturnType<typeof setCardsAC>
 type setCardsPageACType = ReturnType<typeof setCardsPageAC>
 type setCardsPageCountACType = ReturnType<typeof setCardsPageCountAC>
-type ActionsType = setCardsACType | setCardsPageACType | setCardsPageCountACType
+type setCardAnswerForSearchACType = ReturnType<typeof setCardAnswerForSearchAC>
+type ActionsType = setCardsACType | setCardsPageACType | setCardsPageCountACType | setCardAnswerForSearchACType

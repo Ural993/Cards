@@ -65,11 +65,16 @@ export const ProfilePage = () => {
                         </div>
                         <button className={styles.addPackBtn} onClick={openModal}>Add new pack</button>
                     </div>
-                    <PacksList packs={packs}/>
-                    <div className={styles.pagSelectBlock}>
-                        <PacksPagination/>
-                        <div className={styles.selectWrapper}><span>Show</span> <PacksSelect/> Cards per Page</div>
-                    </div>
+                    {packs.length === 0 ?
+                        <div className={styles.notPacks}>This while not packs.</div> :
+                        <> <PacksList packs={packs}/>
+                            <div className={styles.pagSelectBlock}>
+                                <PacksPagination/>
+                                <div className={styles.selectWrapper}><span>Show</span> <PacksSelect/> Cards per Page
+                                </div>
+                            </div>
+                        </>
+                    }
                 </div>
                 {wantToAdd && <AddPackModal closeModal={closeModal}/>}
             </div>

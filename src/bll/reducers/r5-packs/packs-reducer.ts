@@ -21,6 +21,7 @@ type initStateType = {
     isMyPacks: boolean
     maxCardsCount: number,
     minCardsCount: number,
+    packNameForSearch: string
 }
 
 const initState = {
@@ -31,6 +32,7 @@ const initState = {
     isMyPacks: false,
     maxCardsCount: 200,
     minCardsCount: 0,
+    packNameForSearch: ''
 }
 
 
@@ -52,10 +54,14 @@ export const PacksReducer = (state: initStateType = initState, action: ActionsTy
             return {...state, isMyPacks: action.parameter}
         case "PACKS/SET-MIN-MAX-VALUE":
             return {...state, minCardsCount: action.value[0], maxCardsCount: action.value[1]}
+        case "PACKS/SET-PACK-NAME-FOR-SEARCH":
+            return {...state, packNameForSearch: action.packNameForSearch}
         default :
             return state
     }
 }
+
+// AC
 const setPacksAC = (payload: Array<PackType>, cardPacksTotalCount: number, pageCount: number, page: number) => ({
     type: "PACKS/SET-PACKS",
     payload,
@@ -65,13 +71,18 @@ export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as co
 export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COUNT", pageCount} as const)
 export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
 export const setMaxMinValueAC = (value: any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
+export const setPackNameForSearch = (packNameForSearch: string) => ({
+    type: "PACKS/SET-PACK-NAME-FOR-SEARCH",
+    packNameForSearch
+} as const)
 
+//Thunks
 export const getPacks = (isMyPacks?: boolean) => (dispatch: Dispatch, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
-    let {page, pageCount, maxCardsCount, minCardsCount} = getState().packs
+    let {page, pageCount, maxCardsCount, minCardsCount, packNameForSearch} = getState().packs
     let user_id
     isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
-    packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount)
+    packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount, packNameForSearch)
         .then((res) => {
             let {cardPacks, cardPacksTotalCount} = res.data
             dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
@@ -110,4 +121,11 @@ type setPageACType = ReturnType<typeof setPageAC>
 type setPageCountACType = ReturnType<typeof setPageCountAC>
 type getMyPacksParameterType = ReturnType<typeof getMyPacksParameterAC>
 type setMaxMinValueACType = ReturnType<typeof setMaxMinValueAC>
-type ActionsType = setPacksACType | setPageACType | setPageCountACType | getMyPacksParameterType | setMaxMinValueACType
+type setPackNameForSearch = ReturnType<typeof setPackNameForSearch>
+type ActionsType =
+    setPacksACType
+    | setPageACType
+    | setPageCountACType
+    | getMyPacksParameterType
+    | setMaxMinValueACType
+    | setPackNameForSearch
