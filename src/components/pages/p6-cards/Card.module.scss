@@ -7,10 +7,33 @@
   &:nth-child(2n-1) {
     background-color: #F8F7FD;
   }
+
+  .buttons {
+    width: 136px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 48px;
+      height: 24px;
+      color: #21268F;
+      margin-left: 6px;
+      border: none;
+      border-radius: 2px;
+      background-color: #D7D8EF;
+      cursor: pointer;
+    }
+
+    .dellBtn {
+      background-color: #F1453D;;
+      color: white;
+    }
+  }
 }
 
 .question {
   width: 150px;
+
 }
 
 .answer {

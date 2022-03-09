@@ -77,7 +77,6 @@ export const getPacks = (isMyPacks?: boolean) => (dispatch: Dispatch, getState: 
             dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
         })
         .catch((err) => {
-            debugger
         })
         .finally(() => {
             dispatch(setIsFetchingAC(false))

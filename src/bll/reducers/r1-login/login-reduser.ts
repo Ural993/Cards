@@ -1,11 +1,11 @@
 import {AxiosError} from "axios";
 import {Dispatch} from "redux";
 import {authApi} from "../../../dal/cardsApi";
-import {isAuthorizedAC} from "../r4-app/app-reducer";
+import {authorization, isAuthorizedAC} from "../r4-app/app-reducer";
 
 
 const initState = {
-    error: ''
+    error: '',
 }
 type initStateType = typeof initState
 
@@ -19,10 +19,10 @@ export const loginReducer = (state: initStateType = initState, action: ActionsTy
 }
 const setError = (error: string) => ({type: 'LOGIN/SET-ERROR', error} as const)
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
     authApi.login(email, password, rememberMe)
         .then((res) => {
-            dispatch(isAuthorizedAC(true))
+            dispatch(authorization())
         })
         .catch((err: AxiosError) => {
             dispatch(setError(err.response?.data.message))

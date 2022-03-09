@@ -36,7 +36,12 @@ type initStateType = {
 export const CardsReducer = (state = initState, action: ActionsType) => {
     switch (action.type) {
         case "CARDS/SET-CARDS":
-            return {...state, cards: action.cards.map(c => c), cardsTotalCount: action.cardsTotalCount}
+            return {
+                ...state,
+                cards: action.cards.map(c => c),
+                cardsTotalCount: action.cardsTotalCount,
+                packUserId: action.packUserId
+            }
         case "CARDS/SET-CARDS-PAGE":
             return {
                 ...state, page: action.page
@@ -48,10 +53,10 @@ export const CardsReducer = (state = initState, action: ActionsType) => {
     }
 }
 //AC
-const setCardsAC = (cards: Array<CardType>, cardsTotalCount: number) => ({
+const setCardsAC = (cards: Array<CardType>, cardsTotalCount: number, packUserId: string) => ({
     type: "CARDS/SET-CARDS",
     cards,
-    cardsTotalCount
+    cardsTotalCount, packUserId
 } as const)
 export const setCardsPageAC = (page: number) => ({type: "CARDS/SET-CARDS-PAGE", page} as const)
 
@@ -64,8 +69,8 @@ export const getCards = (id: string) => (dispatch: Dispatch, getState: () => App
 
     cardsApi.getCards(id, page, pageCount)
         .then((res) => {
-            let {cards, cardsTotalCount} = res.data
-            dispatch(setCardsAC(cards, cardsTotalCount))
+            let {cards, cardsTotalCount, packUserId} = res.data
+            dispatch(setCardsAC(cards, cardsTotalCount, packUserId))
         })
         .catch((err) => {
             console.log(err)
@@ -86,7 +91,7 @@ export const deleteCard = (cardsPack_id: string, card_id: string) => (dispatch: 
             dispatch(getCards(cardsPack_id))
         })
 }
-export const updateCard = (cardsPack_id: string, card_id: string, question:string, answer:string) => (dispatch: any) => {
+export const updateCard = (cardsPack_id: string, card_id: string, question: string, answer: string) => (dispatch: any) => {
     cardsApi.updateCard(card_id, question, answer)
         .then((res) => {
             dispatch(getCards(cardsPack_id))

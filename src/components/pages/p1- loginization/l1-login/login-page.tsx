@@ -1,7 +1,5 @@
 import React from "react"
 import {Preloader} from "../../../../common/components/c4-Preloader/Preloader";
-import SuperInputText from "../../../../common/components/c1-SuperInputText/SuperInputText";
-import SuperButton from "../../../../common/components/c2-SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../bll/store";
 import {useFormik} from "formik";

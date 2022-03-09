@@ -31,14 +31,14 @@ export const Card = ({card, ...props}: PropsType) => {
             <div className={styles.updated}>{card.updated.slice(0, 10).split('-').reverse().join('.')}</div>
             <div className={styles.grade}>{card.grade}</div>
             {userId === card.user_id &&
-            <>
+            <div className={styles.buttons}>
                 <div>
-                    <button onClick={() => deleteCardBtn(card.cardsPack_id, card._id)}>Delete</button>
+                    <button className={styles.dellBtn} onClick={() => deleteCardBtn(card.cardsPack_id, card._id)}>Delete</button>
                 </div>
                 <div>
                     <button onClick={openModal}>Edit</button>
                 </div>
-            </>
+            </div>
             }
             {wantToEdit && <EditCardModal closeModal={closeModal} packId={card.cardsPack_id}
                                           cardId={card._id} question={card.question} answer={card.answer}/>}
