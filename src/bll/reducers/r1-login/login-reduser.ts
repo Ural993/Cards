@@ -20,14 +20,14 @@ export const loginReducer = (state: initStateType = initState, action: LoginActi
 const setError = (error: string) => ({type: 'LOGIN/SET-ERROR', error} as const)
 
 export const login = (email: string, password: string, rememberMe: boolean): AppThunk =>
-    (dispatch) => {
-        authApi.login(email, password, rememberMe)
-            .then((res) => {
-                dispatch(authorization())
-            })
-            .catch((err: AxiosError) => {
-                dispatch(setError(err.response?.data.message))
-            })
+    async dispatch => {
+        try {
+            let res = await authApi.login(email, password, rememberMe)
+            dispatch(authorization())
+        } catch (err: any) {
+            dispatch(setError(err.response?.data.error))
+        }
     }
+
 type setErrorType = ReturnType<typeof setError>
 export type LoginActionsType = setErrorType

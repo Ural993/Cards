@@ -71,6 +71,7 @@ export const LoginPage = () => {
                         />
                         <span>remember me</span>
                     </div>
+                    {error && <div className={styles.error}>{error}</div>}
                     <Link className={styles.recoveryLink} to={'/recovery'}>Forgot password</Link>
                     <button
                         type={"submit"}
@@ -84,6 +85,5 @@ export const LoginPage = () => {
 
 
             </div>
-            {error && <div>{error}</div>}
         </div>)
 }

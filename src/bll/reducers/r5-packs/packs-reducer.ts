@@ -78,45 +78,48 @@ export const setPackNameForSearchAC = (packNameForSearch: string) => ({
 
 //Thunks
 export const getPacks = (isMyPacks?: boolean) =>
-    (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
-        dispatch(setIsFetchingAC(true))
-        let {page, pageCount, maxCardsCount, minCardsCount, packNameForSearch} = getState().packs
-        let user_id
-        isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
-        packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount, packNameForSearch)
-            .then((res) => {
-                let {cardPacks, cardPacksTotalCount} = res.data
-                dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
-            })
-            .catch((err) => {
-            })
-            .finally(() => {
-                dispatch(setIsFetchingAC(false))
-            })
+    async (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
+        try {
+            dispatch(setIsFetchingAC(true))
+            let {page, pageCount, maxCardsCount, minCardsCount, packNameForSearch} = getState().packs
+            let user_id
+            isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
+            let res = await packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount, packNameForSearch)
+            let {cardPacks, cardPacksTotalCount} = res.data
+            dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
+        } catch (err: any) {
+
+        } finally {
+            dispatch(setIsFetchingAC(false))
+        }
     }
 export const addPack = (name: string): AppThunk =>
-    (dispatch, getState: () => AppStateType) => {
-        let isMyPacks = getState().packs.isMyPacks
-        packsApi.addPack(name)
-            .then((res) => {
-                dispatch(getPacks(isMyPacks))
-            })
+    async (dispatch, getState: () => AppStateType) => {
+        try {
+            let isMyPacks = getState().packs.isMyPacks
+            let res = await packsApi.addPack(name)
+            dispatch(getPacks(isMyPacks))
+        } catch (e) {
+        }
     }
 export const deletePack = (id: string): AppThunk =>
-    (dispatch, getState: () => AppStateType) => {
-        let isMyPacks = getState().packs.isMyPacks
-        packsApi.deletePack(id)
-            .then((res) => {
-                dispatch(getPacks(isMyPacks))
-            })
+    async (dispatch, getState: () => AppStateType) => {
+        try {
+            let isMyPacks = getState().packs.isMyPacks
+            let res = await packsApi.deletePack(id)
+            dispatch(getPacks(isMyPacks))
+        } catch (e) {
+        }
     }
 export const updatePack = (id: string, newName: string): AppThunk =>
-    (dispatch, getState: () => AppStateType) => {
-        let isMyPacks = getState().packs.isMyPacks
-        packsApi.updatePack(id, newName)
-            .then((res) => {
-                dispatch(getPacks(isMyPacks))
-            })
+    async (dispatch, getState: () => AppStateType) => {
+        try {
+            let isMyPacks = getState().packs.isMyPacks
+            let res = packsApi.updatePack(id, newName)
+            dispatch(getPacks(isMyPacks))
+        } catch (e) {
+
+        }
     }
 
 

@@ -69,46 +69,49 @@ export const setCardAnswerForSearchAC = (cardAnswerForSearch: string) => ({
     cardAnswerForSearch
 } as const)
 //Thunks
-export const getCards = (id: string) => (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
-    dispatch(setIsFetchingAC(true))
-    let {page, pageCount, cardAnswerForSearch} = getState().cards
+export const getCards = (id: string) => async (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
+    try {
+        dispatch(setIsFetchingAC(true))
+        let {page, pageCount, cardAnswerForSearch} = getState().cards
 
-    cardsApi.getCards(id, page, pageCount, cardAnswerForSearch)
-        .then((res) => {
-            let {cards, cardsTotalCount, packUserId} = res.data
-            dispatch(setCardsAC(cards, cardsTotalCount, packUserId))
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-        .finally(() => {
-            dispatch(setIsFetchingAC(false))
-        })
+        let res = await cardsApi.getCards(id, page, pageCount, cardAnswerForSearch)
+        let {cards, cardsTotalCount, packUserId} = res.data
+        dispatch(setCardsAC(cards, cardsTotalCount, packUserId))
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(setIsFetchingAC(false))
+    }
 }
 export const addCard = (cardsPack_id: string, question: string, answer: string): AppThunk =>
-    (dispatch) => {
-        cardsApi.addCard(cardsPack_id, question, answer)
-            .then((res) => {
-                dispatch(getCards(cardsPack_id))
-            })
+    async dispatch => {
+        try {
+            let res = await cardsApi.addCard(cardsPack_id, question, answer)
+            dispatch(getCards(cardsPack_id))
+        } catch (err: any) {
+
+        }
     }
-export const deleteCard = (cardsPack_id: string, card_id: string): AppThunk => (dispatch) => {
-    cardsApi.deleteCard(card_id)
-        .then((res) => {
-            dispatch(getCards(cardsPack_id))
-        })
+export const deleteCard = (cardsPack_id: string, card_id: string): AppThunk => async dispatch => {
+    try {
+        let res = await cardsApi.deleteCard(card_id)
+        dispatch(getCards(cardsPack_id))
+    } catch (err: any) {
+    }
+
 }
-export const updateCard = (cardsPack_id: string, card_id: string, question: string, answer: string): AppThunk => (dispatch) => {
-    cardsApi.updateCard(card_id, question, answer)
-        .then((res) => {
+export const updateCard = (cardsPack_id: string, card_id: string, question: string, answer: string): AppThunk =>
+    async dispatch => {
+        try {
+            let res = await cardsApi.updateCard(card_id, question, answer)
             dispatch(getCards(cardsPack_id))
-        })
-}
-export const setGrade = (card_id: string, grade: number): AppThunk => (dispatch) => {
-    cardsApi.setGrade(card_id, grade)
-        .then((res) => {
-            // dispatch(getCards(cardsPack_id))
-        })
+        } catch (e) {
+
+        }
+    }
+export const setGrade = (card_id: string, grade: number): AppThunk => async dispatch => {
+    let res = await cardsApi.setGrade(card_id, grade)
+    //dispatch(getCards(cardsPack_id))
 }
 
 
