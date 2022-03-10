@@ -10,9 +10,9 @@ const initState = {
 
 type InitStateType = typeof initState
 
-type RegistrationActionType = SetErrorAT | SetIsRegisteredAT
+export type RegistrationActionsType = SetErrorAT | SetIsRegisteredAT
 
-export const registrationReducer = (state: InitStateType = initState, action: RegistrationActionType) => {
+export const registrationReducer = (state: InitStateType = initState, action: RegistrationActionsType) => {
     switch (action.type) {
         case "REGISTRATION-REDUCER/SET-ERROR":
             return {
@@ -48,7 +48,7 @@ export const setIsRegisteredAC = (isRegistered: boolean) => {
 
 //THUNK
 
-type RegistrationDispatchType = RegistrationActionType | SetIsFetchingAT
+type RegistrationDispatchType = RegistrationActionsType | SetIsFetchingAT
 
 export const testPing = () => (dispatch: Dispatch<RegistrationDispatchType>) => {
     authApi.ping()

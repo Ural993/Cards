@@ -43,14 +43,14 @@ export const EditCardModal = ModalHOC(({closeModal, packId, cardId, answer, ques
                         className={styles.inp}
                         placeholder={'Question'}
                         onChange={changeQuestionInp}
-                        value={question}
+                        value={newQuestion}
                         autoFocus
                     />
                     <textarea
                         className={styles.inp}
                         placeholder={'Answer'}
                         onChange={changeAnswerInp}
-                        value={answer}
+                        value={newAnswer}
                     />
                 </div>
                 <div className={styles.buttons}>

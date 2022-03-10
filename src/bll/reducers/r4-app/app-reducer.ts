@@ -48,7 +48,7 @@ export const setUserDatesAC = (
 export const isAuthorizedAC = (isAuthorized: boolean) => ({type: "APP/IS-AUTHORIZED", isAuthorized} as const)
 
 
-export const authorization = () => (dispatch: Dispatch) => {
+export const authorization = () => (dispatch: Dispatch<AppActionType>) => {
     authApi.authorization()
         .then((res) => {
             let {
@@ -60,7 +60,7 @@ export const authorization = () => (dispatch: Dispatch) => {
             dispatch(isAuthorizedAC(true))
         })
 }
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = () => (dispatch: Dispatch<AppActionType>) => {
     authApi.logout()
         .then((res) => {
             dispatch(isAuthorizedAC(false))
@@ -71,4 +71,4 @@ export const logout = () => (dispatch: Dispatch) => {
 export type SetIsFetchingAT = ReturnType<typeof setIsFetchingAC>
 type setUserDatesACType = ReturnType<typeof setUserDatesAC>
 type isAuthorizedACType = ReturnType<typeof isAuthorizedAC>
-type AppActionType = SetIsFetchingAT | setUserDatesACType | isAuthorizedACType
+export type AppActionType = SetIsFetchingAT | setUserDatesACType | isAuthorizedACType

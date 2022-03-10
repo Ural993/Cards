@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
 import {packsApi} from "../../../dal/cardsApi";
-import {AppStateType} from "../../store";
+import {AppActionsType, AppStateType, AppThunk} from "../../store";
 import {setIsFetchingAC} from "../r4-app/app-reducer";
 
 
@@ -36,7 +36,7 @@ const initState = {
 }
 
 
-export const PacksReducer = (state: initStateType = initState, action: ActionsType) => {
+export const PacksReducer = (state: initStateType = initState, action: PacksActionsType) => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
             return {
@@ -71,49 +71,53 @@ export const setPageAC = (page: number) => ({type: "PACKS/SET-PAGE", page} as co
 export const setPageCountAC = (pageCount: number) => ({type: "PACKS/SET-PAGE-COUNT", pageCount} as const)
 export const getMyPacksParameterAC = (parameter: boolean) => ({type: "PACKS/GET-MY-PACKS", parameter} as const)
 export const setMaxMinValueAC = (value: any | number[]) => ({type: "PACKS/SET-MIN-MAX-VALUE", value} as const)
-export const setPackNameForSearch = (packNameForSearch: string) => ({
+export const setPackNameForSearchAC = (packNameForSearch: string) => ({
     type: "PACKS/SET-PACK-NAME-FOR-SEARCH",
     packNameForSearch
 } as const)
 
 //Thunks
-export const getPacks = (isMyPacks?: boolean) => (dispatch: Dispatch, getState: () => AppStateType) => {
-    dispatch(setIsFetchingAC(true))
-    let {page, pageCount, maxCardsCount, minCardsCount, packNameForSearch} = getState().packs
-    let user_id
-    isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
-    packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount, packNameForSearch)
-        .then((res) => {
-            let {cardPacks, cardPacksTotalCount} = res.data
-            dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
-        })
-        .catch((err) => {
-        })
-        .finally(() => {
-            dispatch(setIsFetchingAC(false))
-        })
-}
-export const addPack = (name: string) => (dispatch: any, getState: () => AppStateType) => {
-    let isMyPacks = getState().packs.isMyPacks
-    packsApi.addPack(name)
-        .then((res) => {
-            dispatch(getPacks(isMyPacks))
-        })
-}
-export const deletePack = (id: string) => (dispatch: any, getState: () => AppStateType) => {
-    let isMyPacks = getState().packs.isMyPacks
-    packsApi.deletePack(id)
-        .then((res) => {
-            dispatch(getPacks(isMyPacks))
-        })
-}
-export const updatePack = (id: string, newName: string) => (dispatch: any, getState: () => AppStateType) => {
-    let isMyPacks = getState().packs.isMyPacks
-    packsApi.updatePack(id, newName)
-        .then((res) => {
-            dispatch(getPacks(isMyPacks))
-        })
-}
+export const getPacks = (isMyPacks?: boolean) =>
+    (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
+        dispatch(setIsFetchingAC(true))
+        let {page, pageCount, maxCardsCount, minCardsCount, packNameForSearch} = getState().packs
+        let user_id
+        isMyPacks ? user_id = getState().app.userDate._id : user_id = ''
+        packsApi.getPacks(page, pageCount, user_id, maxCardsCount, minCardsCount, packNameForSearch)
+            .then((res) => {
+                let {cardPacks, cardPacksTotalCount} = res.data
+                dispatch(setPacksAC(cardPacks, cardPacksTotalCount, pageCount, page))
+            })
+            .catch((err) => {
+            })
+            .finally(() => {
+                dispatch(setIsFetchingAC(false))
+            })
+    }
+export const addPack = (name: string): AppThunk =>
+    (dispatch, getState: () => AppStateType) => {
+        let isMyPacks = getState().packs.isMyPacks
+        packsApi.addPack(name)
+            .then((res) => {
+                dispatch(getPacks(isMyPacks))
+            })
+    }
+export const deletePack = (id: string): AppThunk =>
+    (dispatch, getState: () => AppStateType) => {
+        let isMyPacks = getState().packs.isMyPacks
+        packsApi.deletePack(id)
+            .then((res) => {
+                dispatch(getPacks(isMyPacks))
+            })
+    }
+export const updatePack = (id: string, newName: string): AppThunk =>
+    (dispatch, getState: () => AppStateType) => {
+        let isMyPacks = getState().packs.isMyPacks
+        packsApi.updatePack(id, newName)
+            .then((res) => {
+                dispatch(getPacks(isMyPacks))
+            })
+    }
 
 
 type setPacksACType = ReturnType<typeof setPacksAC>
@@ -121,8 +125,8 @@ type setPageACType = ReturnType<typeof setPageAC>
 type setPageCountACType = ReturnType<typeof setPageCountAC>
 type getMyPacksParameterType = ReturnType<typeof getMyPacksParameterAC>
 type setMaxMinValueACType = ReturnType<typeof setMaxMinValueAC>
-type setPackNameForSearch = ReturnType<typeof setPackNameForSearch>
-type ActionsType =
+type setPackNameForSearch = ReturnType<typeof setPackNameForSearchAC>
+export type PacksActionsType =
     setPacksACType
     | setPageACType
     | setPageCountACType

@@ -3,7 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     getMyPacksParameterAC,
     getPacks,
-    PackType, setPackNameForSearch,
+    PackType, setPackNameForSearchAC,
 } from "../../../bll/reducers/r5-packs/packs-reducer";
 import {AppStateType} from "../../../bll/store";
 import {PacksList} from "./PacksList";
@@ -54,7 +54,7 @@ export const PacksPage = () => {
         setSearchValue(value)
     }
     const onClickSearchBtn = () => {
-        dispatch(setPackNameForSearch(searchValue))
+        dispatch(setPackNameForSearchAC(searchValue))
     }
     if (isFetching) {
         return <Preloader/>

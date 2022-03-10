@@ -10,7 +10,7 @@ const initState = {
 type InitStateType = typeof initState;
 
 
-export const passwordRecoveryReducer = (state: InitStateType = initState, action: ActionType) => {
+export const passwordRecoveryReducer = (state: InitStateType = initState, action: PassRecoveryActionsType) => {
     switch (action.type) {
         case "PASSWORD-RECOVERY-REDUCER/SET-ERROR":
             return {
@@ -46,7 +46,7 @@ const isNewPasswordCreatedAC = (isNewPasswordCreated: boolean) => ({
 } as const)
 
 
-export const passwordRecovery = (email: string) => async (dispatch: Dispatch) => {
+export const passwordRecovery = (email: string) => async (dispatch: Dispatch<PassRecoveryActionsType>) => {
     try {
         let res = authApi.passwordRecovery(email)
         dispatch(setEmailAC(email))
@@ -55,7 +55,7 @@ export const passwordRecovery = (email: string) => async (dispatch: Dispatch) =>
         dispatch(isToggleErrorAC(err.response.data.error))
     }
 }
-export const createNewPassword = (password: string, token: string) => (dispatch: Dispatch) => {
+export const createNewPassword = (password: string, token: string) => (dispatch: Dispatch<PassRecoveryActionsType>) => {
     authApi.createNewPassword(password, token)
         .then((res) => {
             dispatch(isNewPasswordCreatedAC(true))
@@ -66,4 +66,4 @@ type setErrorACType = ReturnType<typeof setErrorAC>
 type isToggleErrorACType = ReturnType<typeof isToggleErrorAC>
 type setEmailACType = ReturnType<typeof setEmailAC>
 type isNewPasswordCreatedACType = ReturnType<typeof isNewPasswordCreatedAC>
-type ActionType = setErrorACType | isToggleErrorACType | setEmailACType | isNewPasswordCreatedACType
+export type PassRecoveryActionsType = setErrorACType | isToggleErrorACType | setEmailACType | isNewPasswordCreatedACType

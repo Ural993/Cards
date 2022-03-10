@@ -26,13 +26,14 @@ export const AddPackModal = ModalHOC(({closeModal}: AddPackModalPropsType) => {
                     <h3 className={styles.title}>Add new pack</h3>
                     <img src={cross} alt="" onClick={closeModal}/>
                 </div>
-                <div className="inputs">
+                <div>
                     <input
                         type="text"
                         className={styles.inp}
                         placeholder={'Pack name'}
                         onChange={onChangePackName}
                         value={packName}
+                        autoFocus
                     />
                 </div>
                 <div className={styles.buttons}>

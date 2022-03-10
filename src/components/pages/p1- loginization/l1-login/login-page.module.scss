@@ -2,6 +2,13 @@
   height: 100vh;
   background: linear-gradient(to bottom, #E3D3E0, #AFA4CD);
   padding-top: 60px;
+  position: relative;
+
+  .dataForSignIn {
+    position: absolute;
+    top: 250px;
+    right: 100px;
+  }
 
   .container {
     width: 413px;

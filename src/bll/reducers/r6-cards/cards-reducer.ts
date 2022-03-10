@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {cardsApi} from "../../../dal/cardsApi";
-import {AppStateType} from "../../store";
+import {AppActionsType, AppStateType, AppThunk} from "../../store";
 import {setIsFetchingAC} from "../r4-app/app-reducer";
 
 export type CardType = {
@@ -35,7 +35,7 @@ type initStateType = {
     cardAnswerForSearch: string
 }
 
-export const CardsReducer = (state = initState, action: ActionsType) => {
+export const CardsReducer = (state = initState, action: CardsActionsType) => {
     switch (action.type) {
         case "CARDS/SET-CARDS":
             return {
@@ -69,9 +69,9 @@ export const setCardAnswerForSearchAC = (cardAnswerForSearch: string) => ({
     cardAnswerForSearch
 } as const)
 //Thunks
-export const getCards = (id: string) => (dispatch: Dispatch, getState: () => AppStateType) => {
+export const getCards = (id: string) => (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
     dispatch(setIsFetchingAC(true))
-    let{page, pageCount, cardAnswerForSearch} = getState().cards
+    let {page, pageCount, cardAnswerForSearch} = getState().cards
 
     cardsApi.getCards(id, page, pageCount, cardAnswerForSearch)
         .then((res) => {
@@ -85,25 +85,26 @@ export const getCards = (id: string) => (dispatch: Dispatch, getState: () => App
             dispatch(setIsFetchingAC(false))
         })
 }
-export const addCard = (cardsPack_id: string, question: string, answer: string) => (dispatch: any) => {
-    cardsApi.addCard(cardsPack_id, question, answer)
-        .then((res) => {
-            dispatch(getCards(cardsPack_id))
-        })
-}
-export const deleteCard = (cardsPack_id: string, card_id: string) => (dispatch: any) => {
+export const addCard = (cardsPack_id: string, question: string, answer: string): AppThunk =>
+    (dispatch) => {
+        cardsApi.addCard(cardsPack_id, question, answer)
+            .then((res) => {
+                dispatch(getCards(cardsPack_id))
+            })
+    }
+export const deleteCard = (cardsPack_id: string, card_id: string): AppThunk => (dispatch) => {
     cardsApi.deleteCard(card_id)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
         })
 }
-export const updateCard = (cardsPack_id: string, card_id: string, question: string, answer: string) => (dispatch: any) => {
+export const updateCard = (cardsPack_id: string, card_id: string, question: string, answer: string): AppThunk => (dispatch) => {
     cardsApi.updateCard(card_id, question, answer)
         .then((res) => {
             dispatch(getCards(cardsPack_id))
         })
 }
-export const setGrade = (card_id: string, grade: number) => (dispatch: any) => {
+export const setGrade = (card_id: string, grade: number): AppThunk => (dispatch) => {
     cardsApi.setGrade(card_id, grade)
         .then((res) => {
             // dispatch(getCards(cardsPack_id))
@@ -115,4 +116,8 @@ type setCardsACType = ReturnType<typeof setCardsAC>
 type setCardsPageACType = ReturnType<typeof setCardsPageAC>
 type setCardsPageCountACType = ReturnType<typeof setCardsPageCountAC>
 type setCardAnswerForSearchACType = ReturnType<typeof setCardAnswerForSearchAC>
-type ActionsType = setCardsACType | setCardsPageACType | setCardsPageCountACType | setCardAnswerForSearchACType
+export type CardsActionsType =
+    setCardsACType
+    | setCardsPageACType
+    | setCardsPageCountACType
+    | setCardAnswerForSearchACType

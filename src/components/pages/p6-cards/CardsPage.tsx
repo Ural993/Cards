@@ -9,7 +9,7 @@ import {CardsPagination} from "./Pagination/CardsPagination";
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 import {CardsSelect} from "./Select/Select";
 import {AddCardModal} from "./AddCardModal/AddCardModal";
-import {setPackNameForSearch} from "../../../bll/reducers/r5-packs/packs-reducer";
+import {setPackNameForSearchAC} from "../../../bll/reducers/r5-packs/packs-reducer";
 
 
 export const CardsPage = () => {
@@ -66,11 +66,16 @@ export const CardsPage = () => {
                     {userId === packUserId &&
                     <button className={styles.addCardBtn} onClick={openModal}>Add new card</button>}
                 </div>
-                {cards.length !== 0 ? <CardsList cards={cards}/> : <div>Not cards</div>}
-                <div className={styles.cardsSelectPagination}>
-                    <CardsPagination/>
-                    <div className={styles.selectWrapper}><span>Show</span> <CardsSelect/> Cards per Page</div>
-                </div>
+                {cards.length !== 0 ?
+                    <>
+                        <CardsList cards={cards}/>
+                        <div className={styles.cardsSelectPagination}>
+                            <CardsPagination/>
+                            <div className={styles.selectWrapper}><span>Show</span> <CardsSelect/> Cards per Page</div>
+                        </div>
+                    </> :
+
+                    <div className={styles.notCards}>This pack is empty. Click add new card to fill this pack</div>}
             </div>
 
         </div>

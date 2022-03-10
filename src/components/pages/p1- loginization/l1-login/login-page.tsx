@@ -37,6 +37,9 @@ export const LoginPage = () => {
 
     return (
         <div className={styles.loginPage}>
+            <div className={styles.dataForSignIn}>Hi, if you don't want to registration.<br/> Use this data to sign in:<br/>
+                <b>Email:</b> ural-islamov@mail.ru<br/> <b>Password:</b>12345678
+            </div>
             {isFetching && <Preloader/>}
             <div className={styles.container}>
 
