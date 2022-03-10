@@ -4,8 +4,9 @@ import {useParams} from "react-router-dom";
 import {CardType, getCards, setGrade} from "../../../bll/reducers/r6-cards/cards-reducer";
 import {AppStateType} from "../../../bll/store";
 import styles from './learnPage.module.scss'
+import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 
-const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
+const grades = ['не знал', 'забыл', 'перепутал', 'знал, но не точно', 'знал'];
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -23,6 +24,7 @@ const getCard = (cards: CardType[]) => {
 const LearnPage = () => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
+    const isFetching = useSelector<AppStateType, boolean>((state) => state.app.isFetching)
     const [gradeNumber, setGradeNumber] = useState<number>(0)
     // const [first, setFirst] = useState<boolean>(0);
     const {cards} = useSelector((store: AppStateType) => store.cards);
@@ -46,10 +48,9 @@ const LearnPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('LearnContainer useEffect');
-
         if (first) {
             if (id) {
-                dispatch(getCards(id));
+                dispatch(getCards(id, 1000));
                 setFirst(false);
             }
         }
@@ -66,13 +67,11 @@ const LearnPage = () => {
         setIsChecked(false);
 
         if (cards.length > 0) {
-            if (id) {
-                dispatch(setGrade(card._id, gradeNumber))
-                setCard(getCard(cards));
-            }
-        } else {
-
+            dispatch(setGrade(card.cardsPack_id, card._id, gradeNumber))
         }
+    }
+    if (isFetching) {
+        return <Preloader/>
     }
 
     return (
@@ -83,20 +82,17 @@ const LearnPage = () => {
                 <div>
                     {!isChecked && <button onClick={() => setIsChecked(true)}>Check</button>}
                 </div>
-
                 {isChecked && (
                     <>
                         <div className={styles.answer}>Answer: <span>{card.answer}</span></div>
                         <div className={styles.rateTitle}>Rate yourself:</div>
                         <div className={styles.grades}>
                             {grades.map((g, i) => (
-                                <div className={styles.grade}><input type={'checkbox'} key={'grade-' + i}
+                                <div className={styles.grade}><input type={'radio'} key={'grade-' + i} name={'rade'}
                                                                      onChange={() => {
                                                                          setGradeNumber(i + 1)
                                                                      }}/> {g}</div>))}
                         </div>
-
-
                         <div>
                             <button onClick={onNext}>Next</button>
                         </div>
@@ -107,5 +103,6 @@ const LearnPage = () => {
 
     );
 };
+
 
 export default LearnPage;

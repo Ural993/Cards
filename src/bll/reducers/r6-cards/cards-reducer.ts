@@ -69,10 +69,14 @@ export const setCardAnswerForSearchAC = (cardAnswerForSearch: string) => ({
     cardAnswerForSearch
 } as const)
 //Thunks
-export const getCards = (id: string) => async (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
+export const getCards = (id: string, pageCount?: number) => async (dispatch: Dispatch<AppActionsType>, getState: () => AppStateType) => {
+
     try {
         dispatch(setIsFetchingAC(true))
-        let {page, pageCount, cardAnswerForSearch} = getState().cards
+        let {page, cardAnswerForSearch} = getState().cards
+        if (!pageCount) {
+            pageCount = getState().cards.pageCount
+        }
 
         let res = await cardsApi.getCards(id, page, pageCount, cardAnswerForSearch)
         let {cards, cardsTotalCount, packUserId} = res.data
@@ -109,9 +113,14 @@ export const updateCard = (cardsPack_id: string, card_id: string, question: stri
 
         }
     }
-export const setGrade = (card_id: string, grade: number): AppThunk => async dispatch => {
-    let res = await cardsApi.setGrade(card_id, grade)
-    //dispatch(getCards(cardsPack_id))
+export const setGrade = (cardsPack_id: string, card_id: string, grade: number): AppThunk => async dispatch => {
+    try {
+        dispatch(setIsFetchingAC(true))
+        let res = await cardsApi.setGrade(card_id, grade)
+        dispatch(getCards(cardsPack_id, 1000))
+    } finally {
+    }
+
 }
 
 

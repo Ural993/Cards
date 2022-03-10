@@ -9,7 +9,6 @@ import {CardsPagination} from "./Pagination/CardsPagination";
 import {Preloader} from "../../../common/components/c4-Preloader/Preloader";
 import {CardsSelect} from "./Select/Select";
 import {AddCardModal} from "./AddCardModal/AddCardModal";
-import {setPackNameForSearchAC} from "../../../bll/reducers/r5-packs/packs-reducer";
 
 
 export const CardsPage = () => {
